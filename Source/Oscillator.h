@@ -35,10 +35,10 @@ public:
 		frequency.setTargetValue(newValue);
 	}
 
-	void getNextAudioBlock(AudioBuffer<double>& chorusBuffer, AudioBuffer<double>& phaserBuffer, const int numSamples)
+	void getNextAudioBlock(AudioBuffer<double>& buffer, const int numSamples)
 	{
-		auto chorusChannelData = chorusBuffer.getWritePointer(0);
-		auto phaserChannelData = phaserBuffer.getWritePointer(0);
+		auto chorusChannelData = buffer.getWritePointer(0);
+		auto phaserChannelData = buffer.getWritePointer(1);
 
 		for (int smp = 0; smp < numSamples; ++smp)
 		{
