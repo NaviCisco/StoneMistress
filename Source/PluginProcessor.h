@@ -51,6 +51,8 @@ private:
 
     AudioProcessorValueTreeState parameters;
 
+    AudioBuffer<double> modulation;
+
     LFO lfo;
 
     //==============================================================================

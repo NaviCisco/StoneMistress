@@ -18,11 +18,12 @@ StoneMistressAudioProcessor::~StoneMistressAudioProcessor()
 void StoneMistressAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     lfo.prepareToPlay(sampleRate);
+    modulation.setSize(2, samplesPerBlock);
 }
 
 void StoneMistressAudioProcessor::releaseResources()
 {
-    
+    modulation.setSize(0, 0);
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -57,6 +58,8 @@ void StoneMistressAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
 
+    auto const numSamples = buffer.getNumSamples(); 
+
     // In case we have more outputs than inputs, this code clears any output
     // channels that didn't contain input data, (because these aren't
     // guaranteed to be empty - they may contain garbage).
@@ -64,12 +67,12 @@ void StoneMistressAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
     // when they first compile a plugin, but obviously you don't need to keep
     // this code if your algorithm always overwrites all the output channels.
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
-        buffer.clear (i, 0, buffer.getNumSamples());
+        buffer.clear (i, 0, numSamples);
 
     // Scaletta
 
-    // Generazione della modulazione
-    // 1. 
+    // Generazione dell'onda triangolare.
+    lfo.getNextAudioBlock(modulation, numSamples);
 }
 
 //==============================================================================
