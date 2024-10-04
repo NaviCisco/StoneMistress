@@ -11,17 +11,16 @@
 #pragma once
 #include <JuceHeader.h>
 
-class NaiveOscillator
+class LFO
 {
 public:
-	NaiveOscillator(double defaultFrequency = 440.0, int defaultWaveform = 0, double defaultPhaseDelta = 0.0)
+	LFO(double defaultFrequency = 7.0, double defaultPhaseDelta = 0.8)
 	{
-		waveform = defaultWaveform;
 		frequency.setTargetValue(defaultFrequency);
 		phaseDelta = defaultPhaseDelta;
 	}
 
-	~NaiveOscillator() {}
+	~LFO() {}
 
 	void prepareToPlay(double sampleRate)
 	{
@@ -34,11 +33,6 @@ public:
 		// No zero-frequency allowed
 		jassert(newValue > 0);
 		frequency.setTargetValue(newValue);
-	}
-
-	void setWaveform(int newValue)
-	{
-		waveform = newValue;
 	}
 
 	void getNextAudioBlock(AudioBuffer<double>& chorusBuffer, AudioBuffer<double>& phaserBuffer, const int numSamples)
@@ -63,29 +57,8 @@ public:
 		auto leftSampleValue = 0.0;
 		auto rightSampleValue = 0.0;
 
-		switch (waveform)
-		{
-		case 0: // Sinusoidale
-			leftSampleValue = sin(MathConstants<double>::twoPi * currentPhase);
-			break;
-		case 1: // Triangular
-			leftSampleValue = 4.0f * abs(currentPhase - 0.5f) - 1.0f;
-			rightSampleValue = 4.0 * abs((currentPhase + phaseDelta) - 0.5) - 1.0;
-			break;
-		case 2: // Saw UP
-			leftSampleValue = 2.0 * currentPhase - 1.0;
-			break;
-		case 3: // Saw down
-			leftSampleValue = -2.0 * currentPhase + 1.0;
-			break;
-		case 4: // Square
-			leftSampleValue = (currentPhase > 0.5) - (currentPhase < 0.5);
-			break;
-		default:
-			// WTF MAN!
-			jassertfalse;
-			break;
-		}
+		leftSampleValue = 4.0f * abs(currentPhase - 0.5f) - 1.0f;
+		rightSampleValue = 4.0 * abs((currentPhase + phaseDelta) - 0.5) - 1.0;
 
 		leftSample = leftSampleValue;
 		rightSample = rightSampleValue;
@@ -97,7 +70,6 @@ public:
 	}
 
 private:
-	int waveform;
 	SmoothedValue<double, ValueSmoothingTypes::Multiplicative> frequency;
 
 	double currentPhase = 0;
@@ -105,21 +77,5 @@ private:
 	double samplePeriod = 1.0;
 	double phaseDelta = 0;
 
-	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(NaiveOscillator)
-};
-
-class SMLFO : public NaiveOscillator
-{
-public:
-	SMLFO(double defaultFrequency = 8.0)
-		: NaiveOscillator(defaultFrequency, 1, 0.8) // 1 per onda triangolare
-	{
-	}
-
-	~SMLFO() {}
-
-private:
-
-	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SMLFO)
-
+	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(LFO)
 };
