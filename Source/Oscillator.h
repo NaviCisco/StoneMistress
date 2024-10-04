@@ -41,11 +41,10 @@ public:
 		waveform = newValue;
 	}
 
-	virtual void getNextAudioBlock(AudioBuffer<double>& buffer, const int numSamples)
+	void getNextAudioBlock(AudioBuffer<double>& chorusBuffer, AudioBuffer<double>& phaserBuffer, const int numSamples)
 	{
-		jassert(buffer.getNumChannels() == 2);
-		auto leftChannelData = buffer.getWritePointer(0);
-		auto rightChannelData = buffer.getWritePointer(1);
+		auto chorusChannelData = chorusBuffer.getWritePointer(0);
+		auto phaserChannelData = phaserBuffer.getWritePointer(0);
 
 		for (int smp = 0; smp < numSamples; ++smp)
 		{
@@ -54,8 +53,8 @@ public:
 			
 			getNextAudioSample(leftSample, rightSample);
 
-			leftChannelData[smp] = leftSample;
-			rightChannelData[smp] = rightSample;
+			phaserChannelData[smp] = leftSample;
+			chorusChannelData[smp] = rightSample;
 		}
 	}
 
