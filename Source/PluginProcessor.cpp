@@ -55,10 +55,10 @@ bool StoneMistressAudioProcessor::isBusesLayoutSupported (const BusesLayout& lay
 void StoneMistressAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
     juce::ScopedNoDenormals noDenormals;
-    auto totalNumInputChannels  = getTotalNumInputChannels();
-    auto totalNumOutputChannels = getTotalNumOutputChannels();
+    auto inCh  = getTotalNumInputChannels();
+    auto outCh = getTotalNumOutputChannels();
 
-    auto const numSamples = buffer.getNumSamples(); 
+    auto const numSamples = buffer.getNumSamples();
 
     // In case we have more outputs than inputs, this code clears any output
     // channels that didn't contain input data, (because these aren't
@@ -66,7 +66,7 @@ void StoneMistressAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
     // This is here to avoid people getting screaming feedback
     // when they first compile a plugin, but obviously you don't need to keep
     // this code if your algorithm always overwrites all the output channels.
-    for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
+    for (auto i = inCh; i < outCh; ++i)
         buffer.clear (i, 0, numSamples);
 
     // Scaletta
