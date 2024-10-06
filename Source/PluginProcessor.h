@@ -53,6 +53,7 @@ private:
 
     AudioBuffer<double> modulation;
 
+    DryWet drywet;
     LFO lfo;
 
     //==============================================================================

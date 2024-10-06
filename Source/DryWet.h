@@ -26,17 +26,12 @@ public:
         drySignal.setSize(2, maxBlockSize);
     }
 
-    void copyDrySignal(AudioBuffer<float>& sourceBuffer, int numSamples, int inCh, int outCh)
+    void copyDrySignal(AudioBuffer<float>& sourceBuffer, int numSamples)
     {
-        if (inCh < outCh) // {1,2}: ogni canale di drySignal contiene una copia dell'unico canale sorgente.
+        const int numCh = sourceBuffer.getNumChannels();
+        for (int ch = 0; ch < numCh; ++ch)
         {
-            drySignal.copyFrom(0, 0, sourceBuffer, 0, 0, numSamples);
-            drySignal.copyFrom(1, 0, sourceBuffer, 0, 0, numSamples);
-        }
-
-        if (inCh == outCh)
-        {
-            drySignal.copyFrom(0, 0, sourceBuffer, 0, 0, numSamples);
+            drySignal.copyFrom(ch, 0, sourceBuffer, ch, 0, numSamples);
         }
     }
 

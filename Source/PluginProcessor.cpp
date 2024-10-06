@@ -73,6 +73,8 @@ void StoneMistressAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
 
     // Generazione dell'onda triangolare.
     lfo.getNextAudioBlock(modulation, numSamples);
+
+    drywet.copyDrySignal(buffer, numSamples);
 }
 
 //==============================================================================
