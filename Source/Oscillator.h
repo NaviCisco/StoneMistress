@@ -14,9 +14,9 @@
 class LFO
 {
 public:
-	LFO(double defaultFrequency = 7.0, double defaultPhaseDelta = 0.8)
+	LFO(double defaultRate = 7.0, double defaultPhaseDelta = 0.8)
 	{
-		frequency.setTargetValue(defaultFrequency);
+		rate.setTargetValue(defaultRate);
 		phaseDelta = defaultPhaseDelta;
 	}
 
@@ -24,15 +24,15 @@ public:
 
 	void prepareToPlay(double sampleRate)
 	{
-		frequency.reset(sampleRate, 0.02);
+		rate.reset(sampleRate, 0.02);
 		samplePeriod = 1.0 / sampleRate;
 	}
 
-	void setFrequency(double newValue)
+	void setRate(double newValue)
 	{
 		// No zero-frequency allowed
 		jassert(newValue > 0);
-		frequency.setTargetValue(newValue);
+		rate.setTargetValue(newValue);
 	}
 
 	void getNextAudioBlock(AudioBuffer<double>& buffer, const int numSamples)
@@ -54,23 +54,16 @@ public:
 
 	void getNextAudioSample(float& leftSample, float& rightSample)
 	{
-		auto leftSampleValue = 0.0;
-		auto rightSampleValue = 0.0;
+		leftSample = 4.0f * abs(currentPhase - 0.5f) - 1.0f;
+		rightSample = 4.0 * abs((currentPhase + phaseDelta) - 0.5) - 1.0;
 
-		leftSampleValue = 4.0f * abs(currentPhase - 0.5f) - 1.0f;
-		rightSampleValue = 4.0 * abs((currentPhase + phaseDelta) - 0.5) - 1.0;
-
-		leftSample = leftSampleValue;
-		rightSample = rightSampleValue;
-
-		phaseIncrement = frequency.getNextValue() * samplePeriod;
+		phaseIncrement = rate.getNextValue() * samplePeriod;
 		currentPhase += phaseIncrement;
 		currentPhase -= static_cast<int>(currentPhase);
-
 	}
 
 private:
-	SmoothedValue<double, ValueSmoothingTypes::Multiplicative> frequency;
+	SmoothedValue<double, ValueSmoothingTypes::Multiplicative> rate;
 
 	double currentPhase = 0;
 	double phaseIncrement = 0;
@@ -78,4 +71,44 @@ private:
 	double phaseDelta = 0;
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(LFO)
+};
+
+class timeModulation {
+public:
+
+	timeModulation()
+	{
+	}
+
+	~timeModulation() {}
+
+	void prepareToPlay(double sampleRate)
+	{
+		delayTime.reset(sampleRate, 0.02);
+		phaserDepth.reset(sampleRate, 0.02);
+		chorusDepth.reset(sampleRate, 0.02);
+	}
+
+	void setPhaserDepth(const double newValue)
+	{
+		phaserDepth.setTargetValue(newValue);
+	}
+
+	void setChorusDepth(const double newValue)
+	{
+		chorusDepth.setTargetValue(newValue);
+	}
+
+	void setDelayTime(const double newValue)
+	{
+	}
+
+private:
+
+	SmoothedValue<double, ValueSmoothingTypes::Linear> delayTime;
+	SmoothedValue<double, ValueSmoothingTypes::Linear> phaserDepth;
+	SmoothedValue<double, ValueSmoothingTypes::Linear> chorusDepth;
+
+	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(timeModulation)
+
 };

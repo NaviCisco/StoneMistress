@@ -108,7 +108,7 @@ void StoneMistressAudioProcessor::parameterChanged(const String& paramID, float 
 {
     if (paramID == "RT")
     {
-        lfo.setFrequency(newValue);
+        lfo.setRate(newValue);
     }
 
     if (paramID == "PD")
