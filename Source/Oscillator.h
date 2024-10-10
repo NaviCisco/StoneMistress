@@ -10,6 +10,7 @@
 
 #pragma once
 #include <JuceHeader.h>
+#define CHORUS_DELAY_TIME 20.0
 
 class LFO
 {
@@ -73,18 +74,23 @@ private:
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(LFO)
 };
 
-class timeModulation {
+// Il canale 0 o sinistro è destinato a modulare il CHORUS.
+// Il canale 1 o destro modula invece l'unità PHASER.
+class TimeModulation {
 public:
 
-	timeModulation()
+	TimeModulation(const double defaultDelayTime = 0.008, const double defaultPhaserDepth = 0.000, const double defaultChorusDepth = 0.0)
 	{
+		phaserDelayTime.setCurrentAndTargetValue(defaultDelayTime);
+		phaserDepth.setCurrentAndTargetValue(defaultPhaserDepth);
+		chorusDepth.setCurrentAndTargetValue(defaultChorusDepth);
 	}
 
-	~timeModulation() {}
+	~TimeModulation() {}
 
 	void prepareToPlay(double sampleRate)
 	{
-		delayTime.reset(sampleRate, 0.02);
+		phaserDelayTime.reset(sampleRate, 0.02);
 		phaserDepth.reset(sampleRate, 0.02);
 		chorusDepth.reset(sampleRate, 0.02);
 	}
@@ -99,16 +105,67 @@ public:
 		chorusDepth.setTargetValue(newValue);
 	}
 
-	void setDelayTime(const double newValue)
+	void setPhaserDelayTime(const double newValue)
 	{
+		phaserDelayTime.setTargetValue(newValue);
+	}
+
+	void processBlock(AudioBuffer<double>& buffer, const int numSamples)
+	{
+		auto data = buffer.getArrayOfWritePointers();
+		const auto numCh = buffer.getNumChannels();
+
+		for (int ch = 0; ch < numCh; ++ch)
+		{
+			FloatVectorOperations::add(data[ch], 1.0, numSamples);
+			FloatVectorOperations::multiply(data[ch], 0.5, numSamples);
+		}
+
+		chorusDepth.applyGain(data[0], numSamples);
+		phaserDepth.applyGain(data[1], numSamples);
+
+		if (phaserDelayTime.isSmoothing())
+		{
+			for (int smp = 0; smp < numSamples; ++smp)
+			{
+				data[1][smp] += phaserDelayTime.getNextValue();
+			}
+		}
+		else
+		{
+			FloatVectorOperations::add(data[1], phaserDelayTime.getCurrentValue(), numSamples);
+		}
+
+		FloatVectorOperations::add(data[0], CHORUS_DELAY_TIME, numSamples);
 	}
 
 private:
 
-	SmoothedValue<double, ValueSmoothingTypes::Linear> delayTime;
+	SmoothedValue<double, ValueSmoothingTypes::Linear> phaserDelayTime;
 	SmoothedValue<double, ValueSmoothingTypes::Linear> phaserDepth;
 	SmoothedValue<double, ValueSmoothingTypes::Linear> chorusDepth;
 
-	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(timeModulation)
+	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TimeModulation)
+
+};
+
+// This class allows the LFO and TimeModulation classes to communicate with each other. If the RATE value is below a certain
+// threshold, the pedal will enter "Filter Matrix" mode, so that the PHASER unit's delay time will be manually set via the RATE
+// knob. This reults in the ability for the user to manually move the notches across the frequency spectrum. If the RATE knob points
+// to a value above the threshold, Filter Matrix mode will be disengaged, that is, the Phaser's delay time will be dynamically 
+// modulated by the LFO as usual.
+
+class FilterMatrix
+{
+public:
+	FilterMatrix()
+	{
+	}
+
+	~FilterMatrix() {}
+
+private:
+
+	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(FilterMatrix)
 
 };

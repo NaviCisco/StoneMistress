@@ -108,7 +108,7 @@ void StoneMistressAudioProcessor::parameterChanged(const String& paramID, float 
 {
     if (paramID == "RT")
     {
-        lfo.setRate(newValue);
+        lfo.isFilterMatrix(newValue);
     }
 
     if (paramID == "PD")
