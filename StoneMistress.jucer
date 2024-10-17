@@ -12,7 +12,9 @@
     <GROUP id="{A14281EC-5354-4A1A-7A29-80FA14E8E5B8}" name="DSP">
       <FILE id="bEI4hP" name="Delays.h" compile="0" resource="0" file="Source/Delays.h"/>
       <FILE id="Zhn3NF" name="DryWet.h" compile="0" resource="0" file="Source/DryWet.h"/>
+      <FILE id="d5i7ne" name="Filters.h" compile="0" resource="0" file="Source/Filters.h"/>
       <FILE id="RudgCL" name="Oscillator.h" compile="0" resource="0" file="Source/Oscillator.h"/>
+      <FILE id="TEzlwD" name="Phaser.h" compile="0" resource="0" file="Source/Phaser.h"/>
     </GROUP>
     <FILE id="Xf2bq6" name="Parameters.h" compile="0" resource="0" file="Source/Parameters.h"/>
     <FILE id="ug6bPB" name="PluginProcessor.cpp" compile="1" resource="0"

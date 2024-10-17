@@ -158,7 +158,7 @@ private:
 class FilterMatrix
 {
 public:
-	FilterMatrix()
+	FilterMatrix(LFO& lfo, TimeModulation& modulator)
 	{
 	}
 

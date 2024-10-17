@@ -75,6 +75,8 @@ void StoneMistressAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
     lfo.getNextAudioBlock(modulation, numSamples);
 
     drywet.copyDrySignal(buffer, numSamples);
+
+
 }
 
 //==============================================================================

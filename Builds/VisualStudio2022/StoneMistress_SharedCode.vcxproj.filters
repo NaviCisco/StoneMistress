@@ -3546,7 +3546,13 @@
     <ClInclude Include="..\..\Source\DryWet.h">
       <Filter>StoneMistress\DSP</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\Filters.h">
+      <Filter>StoneMistress\DSP</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\Oscillator.h">
+      <Filter>StoneMistress\DSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Phaser.h">
       <Filter>StoneMistress\DSP</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Parameters.h">
