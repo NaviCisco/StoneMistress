@@ -3552,7 +3552,7 @@
     <ClInclude Include="..\..\Source\Oscillator.h">
       <Filter>StoneMistress\DSP</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Phaser.h">
+    <ClInclude Include="..\..\Source\SmallStone.h">
       <Filter>StoneMistress\DSP</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Parameters.h">

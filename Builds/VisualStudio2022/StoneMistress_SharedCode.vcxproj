@@ -2816,7 +2816,7 @@
     <ClInclude Include="..\..\Source\DryWet.h"/>
     <ClInclude Include="..\..\Source\Filters.h"/>
     <ClInclude Include="..\..\Source\Oscillator.h"/>
-    <ClInclude Include="..\..\Source\Phaser.h"/>
+    <ClInclude Include="..\..\Source\SmallStone.h"/>
     <ClInclude Include="..\..\Source\Parameters.h"/>
     <ClInclude Include="..\..\Source\PluginProcessor.h"/>
     <ClInclude Include="..\..\..\..\..\..\..\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h"/>
