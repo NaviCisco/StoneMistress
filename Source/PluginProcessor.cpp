@@ -110,19 +110,22 @@ void StoneMistressAudioProcessor::parameterChanged(const String& paramID, float 
 {
     if (paramID == "RT")
     {
-        lfo.isFilterMatrix(newValue);
+        // lfo.isFilterMatrix(newValue);
     }
 
     if (paramID == "PD")
     {
+        // smallstone.setDepth();
     }
 
     if (paramID == "CD")
     {
+        // chorus.setDepth();
     }
 
     if (paramID == "CLR")
     {
+        smallstone.setColor();
     }
 }
 
