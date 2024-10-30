@@ -55,6 +55,7 @@ public:
 
 	void getNextAudioSample(float& leftSample, float& rightSample)
 	{
+		//Small Stone LFO Is Triangular
 		leftSample = 4.0f * abs(currentPhase - 0.5f) - 1.0f;
 		rightSample = 4.0 * abs((currentPhase + phaseDelta) - 0.5) - 1.0;
 
@@ -76,17 +77,17 @@ private:
 
 // Il canale 0 o sinistro è destinato a modulare il CHORUS.
 // Il canale 1 o destro modula invece l'unità PHASER.
-class TimeModulation {
+class ParameterModulation {
 public:
 
-	TimeModulation(const double defaultDelayTime = 0.008, const double defaultPhaserDepth = 0.000, const double defaultChorusDepth = 0.0)
+	ParameterModulation(const double defaultDelayTime = 0.008, const double defaultPhaserDepth = 0.000, const double defaultChorusDepth = 0.0)
 	{
 		phaserDelayTime.setCurrentAndTargetValue(defaultDelayTime);
 		phaserDepth.setCurrentAndTargetValue(defaultPhaserDepth);
 		chorusDepth.setCurrentAndTargetValue(defaultChorusDepth);
 	}
 
-	~TimeModulation() {}
+	~ParameterModulation() {}
 
 	void prepareToPlay(double sampleRate)
 	{
@@ -145,7 +146,7 @@ private:
 	SmoothedValue<double, ValueSmoothingTypes::Linear> phaserDepth;
 	SmoothedValue<double, ValueSmoothingTypes::Linear> chorusDepth;
 
-	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TimeModulation)
+	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ParameterModulation)
 
 };
 
@@ -158,7 +159,7 @@ private:
 class FilterMatrix
 {
 public:
-	FilterMatrix(LFO& lfo, TimeModulation& modulator)
+	FilterMatrix(LFO& lfo, ParameterModulation& modulator)
 	{
 	}
 

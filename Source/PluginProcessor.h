@@ -4,6 +4,7 @@
 #include "Delays.h"
 #include "DryWet.h"
 #include "Oscillator.h"
+#include "SmallStone.h"
 
 class StoneMistressAudioProcessor  : public juce::AudioProcessor, public AudioProcessorValueTreeState::Listener
 {
@@ -51,10 +52,12 @@ private:
 
     AudioProcessorValueTreeState parameters;
 
-    AudioBuffer<double> modulation;
+    AudioBuffer<double> modulationBuffer;
 
     DryWet drywet;
     LFO lfo;
+    ParameterModulation modulator;
+    SmallStone phaser;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (StoneMistressAudioProcessor)

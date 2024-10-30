@@ -18,12 +18,12 @@ StoneMistressAudioProcessor::~StoneMistressAudioProcessor()
 void StoneMistressAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     lfo.prepareToPlay(sampleRate);
-    modulation.setSize(2, samplesPerBlock);
+    modulationBuffer.setSize(2, samplesPerBlock);
 }
 
 void StoneMistressAudioProcessor::releaseResources()
 {
-    modulation.setSize(0, 0);
+    modulationBuffer.setSize(0, 0);
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -59,6 +59,7 @@ void StoneMistressAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
     auto outCh = getTotalNumOutputChannels();
 
     auto const numSamples = buffer.getNumSamples();
+    auto const numCh = buffer.getNumChannels();
 
     // In case we have more outputs than inputs, this code clears any output
     // channels that didn't contain input data, (because these aren't
@@ -69,12 +70,18 @@ void StoneMistressAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
     for (auto i = inCh; i < outCh; ++i)
         buffer.clear (i, 0, numSamples);
 
-    // Scaletta
+    // TO DO LIST.
 
-    // Generazione dell'onda triangolare.
-    lfo.getNextAudioBlock(modulation, numSamples);
-
-    drywet.copyDrySignal(buffer, numSamples);
+    // 1. Generate the triangular-shaped LFO Signal.
+    lfo.getNextAudioBlock(modulationBuffer, numSamples);
+    // 2. LFO Signal is amplified accordingly.
+    modulator.processBlock(modulationBuffer, numSamples);
+    // 3. Set modulation bounds.
+    FloatVectorOperations::min(modulationBuffer.getWritePointer(1), modulationBuffer.getWritePointer(1), Parameters::maxCoefficient, numSamples);
+    FloatVectorOperations::max(modulationBuffer.getWritePointer(1), modulationBuffer.getWritePointer(1), Parameters::minCoefficient, numSamples);
+    // 4. Make copies of the main buffer.
+    drywet.copyDrySignal(buffer);
+    phaser.copyDrySignal(buffer);
 
 
 }
@@ -125,7 +132,7 @@ void StoneMistressAudioProcessor::parameterChanged(const String& paramID, float 
 
     if (paramID == "CLR")
     {
-        smallstone.setColor();
+        // smallstone.setColor();
     }
 }
 

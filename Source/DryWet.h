@@ -26,9 +26,10 @@ public:
         drySignal.setSize(2, maxBlockSize);
     }
 
-    void copyDrySignal(AudioBuffer<float>& sourceBuffer, int numSamples)
+    void copyDrySignal(AudioBuffer<float>& sourceBuffer)
     {
         const int numCh = sourceBuffer.getNumChannels();
+        const int numSamples = sourceBuffer.getNumSamples();
         for (int ch = 0; ch < numCh; ++ch)
         {
             drySignal.copyFrom(ch, 0, sourceBuffer, ch, 0, numSamples);
