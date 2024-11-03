@@ -5,7 +5,8 @@
 //==============================================================================
 StoneMistressAudioProcessor::StoneMistressAudioProcessor()
     : parameters(*this, nullptr, "STONEMISTRESS_PARAMS", Parameters::createParameterLayout()),
-    lfo(Parameters::defaultRate)
+    lfo(Parameters::defaultRate),
+    phaser()
 {
     Parameters::addListenerToAllParameters(parameters, this);
 }
@@ -19,6 +20,7 @@ void StoneMistressAudioProcessor::prepareToPlay (double sampleRate, int samplesP
 {
     lfo.prepareToPlay(sampleRate);
     modulationBuffer.setSize(2, samplesPerBlock);
+    phaser.prepareToPlay(sampleRate);
 }
 
 void StoneMistressAudioProcessor::releaseResources()
