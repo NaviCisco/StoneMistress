@@ -18,14 +18,18 @@ StoneMistressAudioProcessor::~StoneMistressAudioProcessor()
 //==============================================================================
 void StoneMistressAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
+    drywet.prepareToPlay(samplesPerBlock);
     lfo.prepareToPlay(sampleRate);
     modulationBuffer.setSize(2, samplesPerBlock);
+    smallStoneBuffer.setSize(2, samplesPerBlock);
+    smallStoneBuffer.clear();
     phaser.prepareToPlay(sampleRate);
 }
 
 void StoneMistressAudioProcessor::releaseResources()
 {
     modulationBuffer.setSize(0, 0);
+    smallStoneBuffer.setSize(0, 0);
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -61,7 +65,8 @@ void StoneMistressAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
     auto outCh = getTotalNumOutputChannels();
 
     auto const numSamples = buffer.getNumSamples();
-    auto const numCh = buffer.getNumChannels();
+    /*auto const numCh = buffer.getNumChannels();*/
+    int numCh = 2;
 
     // In case we have more outputs than inputs, this code clears any output
     // channels that didn't contain input data, (because these aren't
@@ -83,11 +88,20 @@ void StoneMistressAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
     FloatVectorOperations::max(modulationBuffer.getWritePointer(1), modulationBuffer.getWritePointer(1), Parameters::minCoefficient, numSamples);
     // 4. Make copies of the main buffer.
     drywet.copyDrySignal(buffer);
-    phaser.copyDrySignal(buffer);
+    
+    for (int ch = 0; ch < numCh; ++ch)
+    {
+        smallStoneBuffer.copyFrom(ch, 0, buffer, ch, 0, numSamples);
+    }
 
+    // 5. Feed the buffers in the processing units
+    phaser.processBlock(smallStoneBuffer, modulationBuffer);
+    // chorus.processBlock(buffer);
+
+    // 6. Mix everything.
+    drywet.mixDrySignal(buffer, smallStoneBuffer);
 
 }
-
 //==============================================================================
 bool StoneMistressAudioProcessor::hasEditor() const
 {

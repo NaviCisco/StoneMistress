@@ -15,7 +15,7 @@ namespace Parameters
 {
     // CONSTANTS
     static const float maxCoefficient = 1.0f; // The "a" coefficient that represents the break frequency, is a number in the [-1,+1]
-    static const float minCoefficient = -1.0f // range.
+    static const float minCoefficient = -1.0f; // range.
 
     // PARAMETER IDs
     static const String nameRate = "RT";

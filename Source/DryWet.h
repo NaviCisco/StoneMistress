@@ -21,9 +21,10 @@ public:
 
     ~DryWet() {}
 
-    void prepareToPlay(double sampleRate, int maxBlockSize)
+    void prepareToPlay(int maxBlockSize)
     {
         drySignal.setSize(2, maxBlockSize);
+        drySignal.clear();
     }
 
     void copyDrySignal(AudioBuffer<float>& sourceBuffer)
@@ -36,7 +37,12 @@ public:
         }
     }
 
-    void mixDrySignal()
+    /** Mixes all the buffers together.
+    
+        @param outputBuffer     Technically, this is the same buffer containing the chorus unit data.
+        @param phaserBuffer     Contains the phaser unit data.
+    */
+    void mixDrySignal(AudioBuffer<float>& outputBuffer, AudioBuffer<float>& phaserBuffer)
     {
     }
 

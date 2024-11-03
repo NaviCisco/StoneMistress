@@ -53,6 +53,7 @@ private:
     AudioProcessorValueTreeState parameters;
 
     AudioBuffer<double> modulationBuffer;
+    AudioBuffer<float> smallStoneBuffer;
 
     DryWet drywet;
     LFO lfo;

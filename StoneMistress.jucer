@@ -2,7 +2,7 @@
 
 <JUCERPROJECT id="SKtaEq" name="StoneMistress" projectType="audioplug" useAppConfig="0"
               addUsingNamespaceToJuceHeader="1" displaySplashScreen="1" jucerFormatVersion="1"
-              pluginManufacturer="LIM" pluginManufacturerCode="LIM!" pluginChannelConfigs="{1,1},{1,2},{2,2},{2,1}">
+              pluginManufacturer="LIM" pluginManufacturerCode="LIM!" pluginChannelConfigs="{2,2},{2,1},{1,1},{1,2}">
   <MAINGROUP id="iMzaZx" name="StoneMistress">
     <GROUP id="{AB9046A7-44BF-E0C4-12F3-8C64035596A1}" name="GUI">
       <FILE id="HmdKDq" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
