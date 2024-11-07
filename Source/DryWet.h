@@ -44,6 +44,18 @@ public:
     */
     void mixDrySignal(AudioBuffer<float>& outputBuffer, AudioBuffer<float>& phaserBuffer)
     {
+        auto numCh = outputBuffer.getNumChannels(); // Both outputBuffer and phaserBuffer have 2 channels at most.
+        auto numSamples = outputBuffer.getNumSamples();
+
+        for (int ch = 0; ch < numCh; ++ch)
+        {
+            FloatVectorOperations::multiply(drySignal.getWritePointer(ch), dryLevel, numSamples);
+            FloatVectorOperations::multiply(outputBuffer.getWritePointer(ch), wetLevel, numSamples);
+            FloatVectorOperations::multiply(phaserBuffer.getWritePointer(ch), wetLevel, numSamples);
+
+            outputBuffer.addFrom(ch, 0, drySignal, ch, 0, numSamples);
+            outputBuffer.addFrom(ch, 0, phaserBuffer, ch, 0, numSamples);
+        }
     }
 
     void releaseResources()
@@ -54,6 +66,9 @@ public:
 private:
 
     AudioBuffer<float> drySignal;
+
+    float dryLevel = 0.4;
+    float wetLevel = 0.3;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(DryWet)
 

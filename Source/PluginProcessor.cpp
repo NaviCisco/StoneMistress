@@ -94,7 +94,7 @@ void StoneMistressAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
         smallStoneBuffer.copyFrom(ch, 0, buffer, ch, 0, numSamples);
     }
 
-    // 5. Feed the buffers in the processing units
+    // 5. Feed the buffers in the respective processing units and PROCESS!
     phaser.processBlock(smallStoneBuffer, modulationBuffer);
     // chorus.processBlock(buffer);
 
@@ -136,9 +136,9 @@ void StoneMistressAudioProcessor::parameterChanged(const String& paramID, float 
         // lfo.isFilterMatrix(newValue);
     }
 
-    if (paramID == "PD")
+    if (paramID == Parameters::namePhaserDepth)
     {
-        // smallstone.setDepth();
+        modulator.setPhaserDepth(newValue);
     }
 
     if (paramID == "CD")
@@ -148,7 +148,7 @@ void StoneMistressAudioProcessor::parameterChanged(const String& paramID, float 
 
     if (paramID == "CLR")
     {
-        // smallstone.setColor();
+        phaser.setColor();
     }
 }
 

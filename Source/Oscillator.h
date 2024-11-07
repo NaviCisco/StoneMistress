@@ -82,7 +82,7 @@ public:
 
 	ParameterModulation(const double defaultDelayTime = 0.008, const double defaultPhaserDepth = 0.000, const double defaultChorusDepth = 0.0)
 	{
-		phaserDelayTime.setCurrentAndTargetValue(defaultDelayTime);
+		phaserCoefficients.setCurrentAndTargetValue(defaultDelayTime);
 		phaserDepth.setCurrentAndTargetValue(defaultPhaserDepth);
 		chorusDepth.setCurrentAndTargetValue(defaultChorusDepth);
 	}
@@ -91,7 +91,7 @@ public:
 
 	void prepareToPlay(double sampleRate)
 	{
-		phaserDelayTime.reset(sampleRate, 0.02);
+		phaserCoefficients.reset(sampleRate, 0.02);
 		phaserDepth.reset(sampleRate, 0.02);
 		chorusDepth.reset(sampleRate, 0.02);
 	}
@@ -106,9 +106,9 @@ public:
 		chorusDepth.setTargetValue(newValue);
 	}
 
-	void setPhaserDelayTime(const double newValue)
+	void setPhaserCoefficients(const float newValue)
 	{
-		phaserDelayTime.setTargetValue(newValue);
+		phaserCoefficients.setTargetValue(newValue);
 	}
 
 	void processBlock(AudioBuffer<double>& buffer, const int numSamples)
@@ -125,16 +125,16 @@ public:
 		chorusDepth.applyGain(data[0], numSamples);
 		phaserDepth.applyGain(data[1], numSamples);
 
-		if (phaserDelayTime.isSmoothing())
+		if (phaserCoefficients.isSmoothing())
 		{
 			for (int smp = 0; smp < numSamples; ++smp)
 			{
-				data[1][smp] += phaserDelayTime.getNextValue();
+				data[1][smp] += phaserCoefficients.getNextValue();
 			}
 		}
 		else
 		{
-			FloatVectorOperations::add(data[1], phaserDelayTime.getCurrentValue(), numSamples);
+			FloatVectorOperations::add(data[1], phaserCoefficients.getCurrentValue(), numSamples);
 		}
 
 		FloatVectorOperations::add(data[0], CHORUS_DELAY_TIME, numSamples);
@@ -142,7 +142,7 @@ public:
 
 private:
 
-	SmoothedValue<double, ValueSmoothingTypes::Linear> phaserDelayTime;
+	SmoothedValue<double, ValueSmoothingTypes::Linear> phaserCoefficients;
 	SmoothedValue<double, ValueSmoothingTypes::Linear> phaserDepth;
 	SmoothedValue<double, ValueSmoothingTypes::Linear> chorusDepth;
 
