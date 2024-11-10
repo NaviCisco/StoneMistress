@@ -43,8 +43,8 @@ public:
 
 		for (int smp = 0; smp < numSamples; ++smp)
 		{
-			float leftSample = 0.0f;
-			float rightSample = 0.0f;
+			double leftSample = 0.0f;
+			double rightSample = 0.0f;
 			
 			getNextAudioSample(leftSample, rightSample);
 
@@ -53,7 +53,7 @@ public:
 		}
 	}
 
-	void getNextAudioSample(float& leftSample, float& rightSample)
+	void getNextAudioSample(double& leftSample, double& rightSample)
 	{
 		//Small Stone LFO Is Triangular
 		leftSample = 4.0f * abs(currentPhase - 0.5f) - 1.0f;

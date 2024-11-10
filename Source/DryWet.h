@@ -44,7 +44,7 @@ public:
     */
     void mixDrySignal(AudioBuffer<float>& outputBuffer, AudioBuffer<float>& phaserBuffer)
     {
-        auto numCh = outputBuffer.getNumChannels(); // Both outputBuffer and phaserBuffer have 2 channels at most.
+        auto numCh = outputBuffer.getNumChannels(); // Both outputBuffer and phaserBuffer can have 2 channels at most.
         auto numSamples = outputBuffer.getNumSamples();
 
         for (int ch = 0; ch < numCh; ++ch)
