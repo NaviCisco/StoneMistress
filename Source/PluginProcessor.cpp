@@ -6,6 +6,7 @@
 StoneMistressAudioProcessor::StoneMistressAudioProcessor()
     : parameters(*this, nullptr, "STONEMISTRESS_PARAMS", Parameters::createParameterLayout()),
     lfo(Parameters::defaultRate),
+    modulator(Parameters::defaultPhaserDepth, Parameters::defaultChorusDepth),
     phaser()
 {
     Parameters::addListenerToAllParameters(parameters, this);
@@ -21,6 +22,7 @@ void StoneMistressAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     drywet.prepareToPlay(samplesPerBlock);
     lfo.prepareToPlay(sampleRate);
     modulationBuffer.setSize(2, samplesPerBlock);
+    modulator.prepareToPlay(sampleRate);
     smallStoneBuffer.setSize(2, samplesPerBlock);
     smallStoneBuffer.clear();
     phaser.prepareToPlay(sampleRate);
@@ -65,8 +67,7 @@ void StoneMistressAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
     auto outCh = getTotalNumOutputChannels();
 
     auto const numSamples = buffer.getNumSamples();
-    /*auto const numCh = buffer.getNumChannels();*/
-    int numCh = 2;
+    auto const numCh = buffer.getNumChannels();
 
     // In case we have more outputs than inputs, this code clears any output
     // channels that didn't contain input data, (because these aren't
@@ -85,7 +86,6 @@ void StoneMistressAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
     modulator.processBlock(modulationBuffer, numSamples);
     // 3. Set modulation bounds.
     FloatVectorOperations::min(modulationBuffer.getWritePointer(1), modulationBuffer.getWritePointer(1), Parameters::maxCoefficient, numSamples);
-    FloatVectorOperations::max(modulationBuffer.getWritePointer(1), modulationBuffer.getWritePointer(1), Parameters::minCoefficient, numSamples);
     // 4. Make copies of the main buffer.
     drywet.copyDrySignal(buffer);
     
@@ -98,7 +98,7 @@ void StoneMistressAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
     phaser.processBlock(smallStoneBuffer, modulationBuffer);
     // chorus.processBlock(buffer);
 
-    // 6. Mix everything.
+    //// 6. Mix everything.
     drywet.mixDrySignal(buffer, smallStoneBuffer);
 
 }
@@ -131,9 +131,9 @@ void StoneMistressAudioProcessor::setStateInformation (const void* data, int siz
 
 void StoneMistressAudioProcessor::parameterChanged(const String& paramID, float newValue)
 {
-    if (paramID == "RT")
+    if (paramID == Parameters::nameRate)
     {
-        // lfo.isFilterMatrix(newValue);
+        lfo.setRate(newValue);
     }
 
     if (paramID == Parameters::namePhaserDepth)
@@ -141,12 +141,12 @@ void StoneMistressAudioProcessor::parameterChanged(const String& paramID, float 
         modulator.setPhaserDepth(newValue);
     }
 
-    if (paramID == "CD")
+    if (paramID == Parameters::nameChorusDepth)
     {
-        // chorus.setDepth();
+        modulator.setChorusDepth(newValue);
     }
 
-    if (paramID == "CLR")
+    if (paramID == Parameters::nameColor)
     {
         phaser.setColor();
     }

@@ -15,7 +15,7 @@
 class LFO
 {
 public:
-	LFO(double defaultRate = 7.0, double defaultPhaseDelta = 0.8)
+	LFO(double defaultRate = 7.0, double defaultPhaseDelta = 0.7)
 	{
 		rate.setTargetValue(defaultRate);
 		phaseDelta = defaultPhaseDelta;
@@ -36,28 +36,31 @@ public:
 		rate.setTargetValue(newValue);
 	}
 
+	/* Left Channel/Channel 0 = Chorus Unit.
+	   Right Channel/Channel 1= Phaser Unit.
+	*/
 	void getNextAudioBlock(AudioBuffer<double>& buffer, const int numSamples)
 	{
-		auto chorusChannelData = buffer.getWritePointer(0);
-		auto phaserChannelData = buffer.getWritePointer(1);
+		auto data = buffer.getArrayOfWritePointers();
 
 		for (int smp = 0; smp < numSamples; ++smp)
 		{
 			double leftSample = 0.0f;
 			double rightSample = 0.0f;
-			
+
 			getNextAudioSample(leftSample, rightSample);
 
-			phaserChannelData[smp] = leftSample;
-			chorusChannelData[smp] = rightSample;
+			data[0][smp] = leftSample; // Chorus
+			data[1][smp] = rightSample; // Phaser
 		}
 	}
 
 	void getNextAudioSample(double& leftSample, double& rightSample)
 	{
 		//Small Stone LFO Is Triangular
+		double rightPhase = fmod(currentPhase + phaseDelta, 1.0);
 		leftSample = 4.0f * abs(currentPhase - 0.5f) - 1.0f;
-		rightSample = 4.0 * abs((currentPhase + phaseDelta) - 0.5) - 1.0;
+		rightSample = 4.0 * abs(rightPhase - 0.5) - 1.0;
 
 		phaseIncrement = rate.getNextValue() * samplePeriod;
 		currentPhase += phaseIncrement;
@@ -80,9 +83,8 @@ private:
 class ParameterModulation {
 public:
 
-	ParameterModulation(const double defaultDelayTime = 0.008, const double defaultPhaserDepth = 0.000, const double defaultChorusDepth = 0.0)
+	ParameterModulation(const double defaultPhaserDepth = 0.030, const double defaultChorusDepth = 0.0)
 	{
-		phaserCoefficients.setCurrentAndTargetValue(defaultDelayTime);
 		phaserDepth.setCurrentAndTargetValue(defaultPhaserDepth);
 		chorusDepth.setCurrentAndTargetValue(defaultChorusDepth);
 	}
@@ -118,8 +120,8 @@ public:
 
 		for (int ch = 0; ch < numCh; ++ch)
 		{
-			FloatVectorOperations::add(data[ch], 1.0, numSamples);
-			FloatVectorOperations::multiply(data[ch], 0.5, numSamples);
+			FloatVectorOperations::add(data[ch], 1.0, numSamples); // At this stage, LFO is in range [0, +2]
+			FloatVectorOperations::multiply(data[ch], 0.5, numSamples); // At this stage, LFO is in range [0, +1]
 		}
 
 		chorusDepth.applyGain(data[0], numSamples);
@@ -153,7 +155,7 @@ private:
 // This class allows the LFO and TimeModulation classes to communicate with each other. If the RATE value is below a certain
 // threshold, the pedal will enter "Filter Matrix" mode, so that the PHASER unit's delay time will be manually set via the RATE
 // knob. This reults in the ability for the user to manually move the notches across the frequency spectrum. If the RATE knob points
-// to a value above the threshold, Filter Matrix mode will be disengaged, that is, the Phaser's delay time will be dynamically 
+// to a value above the threshold, Filter Matrix mode will be disengaged, that is, the Phaser's All Pass coefficients will be dynamically 
 // modulated by the LFO as usual.
 
 class FilterMatrix
