@@ -127,18 +127,6 @@ public:
 		chorusDepth.applyGain(data[0], numSamples);
 		phaserDepth.applyGain(data[1], numSamples);
 
-		if (phaserCoefficients.isSmoothing())
-		{
-			for (int smp = 0; smp < numSamples; ++smp)
-			{
-				data[1][smp] += phaserCoefficients.getNextValue();
-			}
-		}
-		else
-		{
-			FloatVectorOperations::add(data[1], phaserCoefficients.getCurrentValue(), numSamples);
-		}
-
 		FloatVectorOperations::add(data[0], CHORUS_DELAY_TIME, numSamples);
 	}
 

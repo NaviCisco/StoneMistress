@@ -84,8 +84,8 @@ void StoneMistressAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
     lfo.getNextAudioBlock(modulationBuffer, numSamples);
     // 2. LFO Signal is amplified accordingly.
     modulator.processBlock(modulationBuffer, numSamples);
-    // 3. Set modulation bounds.
-    FloatVectorOperations::min(modulationBuffer.getWritePointer(1), modulationBuffer.getWritePointer(1), Parameters::maxCoefficient, numSamples);
+    // 3. Set modulation bounds for the Chorus channel.
+    FloatVectorOperations::min(modulationBuffer.getWritePointer(0), modulationBuffer.getWritePointer(0), Parameters::maxCoefficient, numSamples);
     // 4. Make copies of the main buffer.
     drywet.copyDrySignal(buffer);
     
