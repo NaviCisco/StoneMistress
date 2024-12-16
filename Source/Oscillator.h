@@ -37,7 +37,7 @@ public:
 	}
 
 	/* Left Channel/Channel 0 = Chorus Unit.
-	   Right Channel/Channel 1= Phaser Unit.
+	   Right Channel/Channel 1 = Phaser Unit.
 	*/
 	void getNextAudioBlock(AudioBuffer<double>& buffer, const int numSamples)
 	{
@@ -57,10 +57,10 @@ public:
 
 	void getNextAudioSample(double& leftSample, double& rightSample)
 	{
-		//Small Stone LFO Is Triangular
+		//Small Stone LFO Is a SineWave
 		double rightPhase = fmod(currentPhase + phaseDelta, 1.0);
 		leftSample = 4.0f * abs(currentPhase - 0.5f) - 1.0f;
-		rightSample = 4.0 * abs(rightPhase - 0.5) - 1.0;
+		rightSample = sin(MathConstants<double>::twoPi * rightPhase);
 
 		phaseIncrement = rate.getNextValue() * samplePeriod;
 		currentPhase += phaseIncrement;
@@ -93,7 +93,6 @@ public:
 
 	void prepareToPlay(double sampleRate)
 	{
-		phaserCoefficients.reset(sampleRate, 0.02);
 		phaserDepth.reset(sampleRate, 0.02);
 		chorusDepth.reset(sampleRate, 0.02);
 	}
@@ -106,11 +105,6 @@ public:
 	void setChorusDepth(const double newValue)
 	{
 		chorusDepth.setTargetValue(newValue);
-	}
-
-	void setPhaserCoefficients(const float newValue)
-	{
-		phaserCoefficients.setTargetValue(newValue);
 	}
 
 	void processBlock(AudioBuffer<double>& buffer, const int numSamples)
@@ -132,7 +126,6 @@ public:
 
 private:
 
-	SmoothedValue<double, ValueSmoothingTypes::Linear> phaserCoefficients;
 	SmoothedValue<double, ValueSmoothingTypes::Linear> phaserDepth;
 	SmoothedValue<double, ValueSmoothingTypes::Linear> chorusDepth;
 

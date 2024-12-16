@@ -22,10 +22,10 @@ public:
 
     SmallStone()
         : chain{
-        AllPass(1000.0),
-        AllPass(1000.0),
-        AllPass(5000.0),
-        AllPass(5000.0),
+        AllPass(250.0),
+        AllPass(250.0),
+        AllPass(1500.0),
+        AllPass(1500.0),
         // This stage is only enabled when the COLOR switch is UP
         // AllPass(8000.0)
         }
@@ -37,18 +37,18 @@ public:
     void prepareToPlay(double newSampleRate)
     {
         samplePeriod = 1 / newSampleRate;
-        feedbackSignal.setSize(2, 1);
-        feedbackSignal.clear();
+        //feedbackSignal.setSize(2, 1);
+        //feedbackSignal.clear();
         for (auto& stage : chain)
         {
             stage.setSamplePeriod(samplePeriod);
         }
     }
 
-    void releaseResources()
+    /*void releaseResources()
     {
         feedbackSignal.setSize(0, 0);
-    }
+    }*/
 
     /** This is where the magic takes place.
     
@@ -90,15 +90,15 @@ public:
         }
     }
 
-    void setColor()
+    /*void setColor()
     {
         colorSwitch = !colorSwitch;
-    }
+    }*/
 
 private:
 
     AllPass chain[5];
-    AudioBuffer<float> feedbackSignal; // 1 Sample big.
+    //AudioBuffer<float> feedbackSignal; // 1 Sample big.
     AudioBuffer<float> copySignal; // Contains a copy of the AudioProcessor's buffer.
 
     double samplePeriod = 1.0;

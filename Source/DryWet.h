@@ -71,8 +71,8 @@ private:
 
     AudioBuffer<float> drySignal;
 
-    float dryLevel = 1;
-    float wetLevel = 1;
+    float dryLevel = 0.5;
+    float wetLevel = 0.5;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(DryWet)
 
