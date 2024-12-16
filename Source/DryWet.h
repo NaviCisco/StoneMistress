@@ -39,7 +39,7 @@ public:
 
     /** Mixes all the buffers together.
     
-        @param outputBuffer     Technically, this is the same buffer containing the chorus unit data.
+        @param outputBuffer     Technically, this is the same buffer containing the raw chorus data.
         @param phaserBuffer     Contains the phaser unit data.
     */
     void mixDrySignal(AudioBuffer<float>& outputBuffer, AudioBuffer<float>& phaserBuffer)
@@ -47,11 +47,15 @@ public:
         auto numCh = outputBuffer.getNumChannels(); // Both outputBuffer and phaserBuffer can have 2 channels at most.
         auto numSamples = outputBuffer.getNumSamples();
 
+        drySignal.applyGain(dryLevel);
+        outputBuffer.applyGain(wetLevel);
+        phaserBuffer.applyGain(wetLevel);
+
         for (int ch = 0; ch < numCh; ++ch)
         {
-            FloatVectorOperations::multiply(drySignal.getWritePointer(ch), dryLevel, numSamples);
-            FloatVectorOperations::multiply(outputBuffer.getWritePointer(ch), wetLevel, numSamples);
-            FloatVectorOperations::multiply(phaserBuffer.getWritePointer(ch), wetLevel, numSamples);
+            /*FloatVectorOperations::multiply(drySignal.getWritePointer(ch), dryLevel, numSamples);
+            FloatVectorOperations::multiply(chorusBuffer.getWritePointer(ch), wetLevel, numSamples);
+            FloatVectorOperations::multiply(phaserBuffer.getWritePointer(ch), wetLevel, numSamples);*/
 
             outputBuffer.addFrom(ch, 0, drySignal, ch, 0, numSamples);
             outputBuffer.addFrom(ch, 0, phaserBuffer, ch, 0, numSamples);
@@ -67,8 +71,8 @@ private:
 
     AudioBuffer<float> drySignal;
 
-    float dryLevel = 0.4;
-    float wetLevel = 0.3;
+    float dryLevel = 1;
+    float wetLevel = 1;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(DryWet)
 

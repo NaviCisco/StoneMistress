@@ -82,10 +82,10 @@ void StoneMistressAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
 
     // 1. Generate the triangular-shaped LFO Signal.
     lfo.getNextAudioBlock(modulationBuffer, numSamples);
-    // 2. LFO Signal is amplified accordingly.
+    // 2. LFO Signal is scaled accordingly.
     modulator.processBlock(modulationBuffer, numSamples);
     // 3. Set modulation bounds for the Chorus channel.
-    FloatVectorOperations::min(modulationBuffer.getWritePointer(0), modulationBuffer.getWritePointer(0), Parameters::maxCoefficient, numSamples);
+    FloatVectorOperations::min(modulationBuffer.getWritePointer(0), modulationBuffer.getWritePointer(0), Parameters::maxDelayTime, numSamples);
     // 4. Make copies of the main buffer.
     drywet.copyDrySignal(buffer);
     
@@ -95,10 +95,10 @@ void StoneMistressAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
     }
 
     // 5. Feed the buffers in the respective processing units and PROCESS!
-    phaser.processBlock(smallStoneBuffer, modulationBuffer);
-    // chorus.processBlock(buffer);
+    phaser.processBlock(smallStoneBuffer, modulationBuffer, numSamples);
+    // chorus.processBlock(buffer, modulationBuffer);
 
-    //// 6. Mix everything.
+    // 6. Mix everything.
     drywet.mixDrySignal(buffer, smallStoneBuffer);
 
 }
@@ -146,10 +146,10 @@ void StoneMistressAudioProcessor::parameterChanged(const String& paramID, float 
         modulator.setChorusDepth(newValue);
     }
 
-    if (paramID == Parameters::nameColor)
+    /*if (paramID == Parameters::nameColor)
     {
         phaser.setColor();
-    }
+    }*/
 }
 
 //==============================================================================

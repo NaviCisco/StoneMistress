@@ -78,8 +78,8 @@ private:
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(LFO)
 };
 
-// Il canale 0 o sinistro è destinato a modulare il CHORUS.
-// Il canale 1 o destro modula invece l'unità PHASER.
+// Channel 0 (L) is reserved for the modulation of the CHORUS delay time.
+// Channel 1 (R) 1 is reserved for the modulation of the PHASER All Pass Filters coefficients.
 class ParameterModulation {
 public:
 
@@ -140,7 +140,7 @@ private:
 
 };
 
-// This class allows the LFO and TimeModulation classes to communicate with each other. If the RATE value is below a certain
+// This class allows the LFO and Modulation classes to communicate with each other. If the RATE value is below a certain
 // threshold, the pedal will enter "Filter Matrix" mode, so that the PHASER unit's delay time will be manually set via the RATE
 // knob. This reults in the ability for the user to manually move the notches across the frequency spectrum. If the RATE knob points
 // to a value above the threshold, Filter Matrix mode will be disengaged, that is, the Phaser's All Pass coefficients will be dynamically 
