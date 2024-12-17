@@ -3,7 +3,7 @@
 
     SmallStone.h
     Created: 19 Oct 2024 8:43:00pm
-    Author:  Ivan
+    Author:  Ivan F. Muñoz G.
 
   ==============================================================================
 */
@@ -12,11 +12,11 @@
 #include <JuceHeader.h>
 #include "Filters.h"
 
-#define FEEDBACK 0.20
+#define FEEDBACK 0.50
 #define STAGES 4
 
-// Quick emulation of the Small Stone EH4800 Phase Shifter Pedal. 4 Stages on normal operation; when the COLOR switch is up, a
-// 5th stage with feedback is added.
+// Quick emulation of the Small Stone EH4800 Phase Shifter Pedal. 4 Stages on normal operation; when the COLOR switch is up, the
+// notch sweeping range is extended and a feedback line is enabled.
 class SmallStone {
 public:
 
@@ -26,8 +26,6 @@ public:
         AllPass(250.0),
         AllPass(1500.0),
         AllPass(1500.0),
-        // This stage is only enabled when the COLOR switch is UP
-        // AllPass(8000.0)
         }
     {
     }
@@ -37,18 +35,18 @@ public:
     void prepareToPlay(double newSampleRate)
     {
         samplePeriod = 1 / newSampleRate;
-        //feedbackSignal.setSize(2, 1);
-        //feedbackSignal.clear();
+        feedbackSignal.setSize(2, 1);
+        feedbackSignal.clear();
         for (auto& stage : chain)
         {
             stage.setSamplePeriod(samplePeriod);
         }
     }
 
-    /*void releaseResources()
+    void releaseResources()
     {
         feedbackSignal.setSize(0, 0);
-    }*/
+    }
 
     /** This is where the magic takes place.
     
@@ -69,36 +67,36 @@ public:
                 auto sampleValue = bufferData[ch][smp];
                 auto modValue = modData[1][smp];
 
-                /*if (colorSwitch) // Adds feedback up at first stage.
+                if (colorSwitch) // Adds feedback up at first stage.
                 {
                     sampleValue += FEEDBACK * feedbackSignal.getSample(ch, 0);
-                }*/
+                }
 
-                for (int stage = 0; stage < STAGES; ++stage) // 5th stage also enables a feedback line.
+                for (int stage = 0; stage < (colorSwitch ? STAGES + 1 : STAGES); ++stage) // 5th stage also enables a feedback line.
                 {
                     //DBG("Preocessing Stage Number " << stage);
                     sampleValue = chain[stage].processSample(sampleValue, ch, modValue);
                 }
 
-                /*if (colorSwitch)
+                if (colorSwitch)
                 {
                     feedbackSignal.setSample(ch, 0, sampleValue);
-                }*/
+                }
 
                 bufferData[ch][smp] = static_cast<float>(sampleValue);
             }
         }
     }
 
-    /*void setColor()
+    void setColor()
     {
         colorSwitch = !colorSwitch;
-    }*/
+    }
 
 private:
 
     AllPass chain[5];
-    //AudioBuffer<float> feedbackSignal; // 1 Sample big.
+    AudioBuffer<float> feedbackSignal; // 1 Sample big.
     AudioBuffer<float> copySignal; // Contains a copy of the AudioProcessor's buffer.
 
     double samplePeriod = 1.0;

@@ -3,7 +3,7 @@
 
     Filters.h
     Created: 13 Oct 2024 7:33:18pm
-    Author:  Ivan
+    Author:  Ivan F. Muñoz G.
 
   ==============================================================================
 */
@@ -41,13 +41,7 @@ public:
 
     float processSample(float x, int ch, double modulation)
     {
-        //DBG("modulation value is: " << modulation);
         float modCoefficient = calculateCoefficient(modulation);
-        //DBG("modCoefficient value is: " << modCoefficient);
-        //modCoefficient = jmin(modCoefficient, 1.0f);
-
-        // v = x[n] + (-a)*y[n - 1]. Previous output adds up to the current input before it is fed into the All Pass Filter.
-        //float v = x - modCoefficient * y1[ch];
 
         float y = modCoefficient * x + x1[ch] - modCoefficient * y1[ch];
 

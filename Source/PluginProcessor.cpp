@@ -146,10 +146,10 @@ void StoneMistressAudioProcessor::parameterChanged(const String& paramID, float 
         modulator.setChorusDepth(newValue);
     }
 
-    /*if (paramID == Parameters::nameColor)
+    if (paramID == Parameters::nameColor)
     {
         phaser.setColor();
-    }*/
+    }
 }
 
 //==============================================================================
