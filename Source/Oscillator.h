@@ -118,11 +118,6 @@ public:
 			FloatVectorOperations::multiply(data[ch], 0.5, numSamples); // At this stage, LFO is in range [0, +1]
 		}
 
-		for (int smp = 0; smp < numSamples; ++smp)
-		{
-			data[1][smp] = pow(data[1][smp], 2); // Squaring will smooth the modulation curve
-		}
-
 		chorusDepth.applyGain(data[0], numSamples);
 		phaserDepth.applyGain(data[1], numSamples);
 

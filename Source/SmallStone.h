@@ -12,7 +12,7 @@
 #include <JuceHeader.h>
 #include "Filters.h"
 
-#define FEEDBACK 0.50
+#define FEEDBACK 0.73
 #define STAGES 4
 
 // Quick emulation of the Small Stone EH4800 Phase Shifter Pedal. 4 Stages on normal operation; when the COLOR switch is up, the
@@ -22,10 +22,10 @@ public:
 
     SmallStone()
         : chain{
-        AllPass(250.0),
-        AllPass(250.0),
-        AllPass(1500.0),
-        AllPass(1500.0),
+        AllPass(25.0),
+        AllPass(25.0),
+        AllPass(50.0),
+        AllPass(50.0),
         }
     {
     }
@@ -72,9 +72,8 @@ public:
                     sampleValue += FEEDBACK * feedbackSignal.getSample(ch, 0);
                 }
 
-                for (int stage = 0; stage < (colorSwitch ? STAGES + 1 : STAGES); ++stage) // 5th stage also enables a feedback line.
+                for (int stage = 0; stage < STAGES; ++stage)
                 {
-                    //DBG("Preocessing Stage Number " << stage);
                     sampleValue = chain[stage].processSample(sampleValue, ch, modValue);
                 }
 
@@ -95,9 +94,8 @@ public:
 
 private:
 
-    AllPass chain[5];
+    AllPass chain[4];
     AudioBuffer<float> feedbackSignal; // 1 Sample big.
-    AudioBuffer<float> copySignal; // Contains a copy of the AudioProcessor's buffer.
 
     double samplePeriod = 1.0;
     bool colorSwitch = false;

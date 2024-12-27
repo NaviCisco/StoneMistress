@@ -9,3 +9,23 @@
 */
 
 #pragma once
+#include <JuceHeader.h>
+
+class Chorus
+{
+public:
+
+    Chorus() {}
+
+    ~Chorus() {}
+
+    void prepareToPlay()
+    {
+    }
+
+    void releaseResources()
+    {
+    }
+
+
+};

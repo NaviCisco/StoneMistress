@@ -48,8 +48,8 @@ public:
         auto numSamples = outputBuffer.getNumSamples();
 
         drySignal.applyGain(dryLevel);
-        outputBuffer.applyGain(wetLevel);
-        phaserBuffer.applyGain(wetLevel);
+        outputBuffer.applyGain(wetPhaserLevel);
+        phaserBuffer.applyGain(wetPhaserLevel);
 
         for (int ch = 0; ch < numCh; ++ch)
         {
@@ -71,8 +71,9 @@ private:
 
     AudioBuffer<float> drySignal;
 
-    float dryLevel = 0.5;
-    float wetLevel = 0.5;
+    float dryLevel = 0.0;
+    float wetPhaserLevel = 0.9;
+    //float wetChorusLevel = 0.3;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(DryWet)
 

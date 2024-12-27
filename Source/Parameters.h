@@ -33,7 +33,7 @@ namespace Parameters
         std::vector<std::unique_ptr<RangedAudioParameter>> parameters;
 
         parameters.push_back(std::make_unique<AudioParameterFloat>(nameRate, "Rate", NormalisableRange<float>(0.1f, 8.0f, 0.01f), defaultRate));
-        parameters.push_back(std::make_unique<AudioParameterFloat>(namePhaserDepth, "Phaser Depth", NormalisableRange<float>(0.000f, 6000.0f, 1.0f), defaultPhaserDepth));
+        parameters.push_back(std::make_unique<AudioParameterFloat>(namePhaserDepth, "Phaser Depth", NormalisableRange<float>(0.000f, 2000.0f, 1.0f), defaultPhaserDepth));
         parameters.push_back(std::make_unique<AudioParameterFloat>(nameChorusDepth, "Chorus Depth", NormalisableRange<float>(0.0f, 15.0f, 1.0f), defaultChorusDepth));
         parameters.push_back(std::make_unique<AudioParameterBool>(nameColor, "Color", defaultColor));
 
