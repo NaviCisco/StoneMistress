@@ -21,17 +21,21 @@ void StoneMistressAudioProcessor::prepareToPlay (double sampleRate, int samplesP
 {
     drywet.prepareToPlay(samplesPerBlock);
     lfo.prepareToPlay(sampleRate);
-    modulationBuffer.setSize(2, samplesPerBlock);
+    phaserModulationBuffer.setSize(2, samplesPerBlock);
+    chorusModulationBuffer.setSize(2, samplesPerBlock);
     modulator.prepareToPlay(sampleRate);
     smallStoneBuffer.setSize(2, samplesPerBlock);
     smallStoneBuffer.clear();
     phaser.prepareToPlay(sampleRate);
+    chorus.prepareToPlay(sampleRate, samplesPerBlock);
 }
 
 void StoneMistressAudioProcessor::releaseResources()
 {
-    modulationBuffer.setSize(0, 0);
+    phaserModulationBuffer.setSize(0, 0);
+    chorusModulationBuffer.setSize(0, 0);
     smallStoneBuffer.setSize(0, 0);
+    chorus.releaseResources();
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -80,12 +84,19 @@ void StoneMistressAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
 
     // TO DO LIST.
 
-    // 1. Generate the triangular-shaped LFO Signal.
-    lfo.getNextAudioBlock(modulationBuffer, numSamples);
+    // 1. Generate the sine LFO Signal for one unit.
+    lfo.getNextAudioBlock(phaserModulationBuffer, numSamples);
+    // 2. Copy the same LFO signal into another buffer.
+    for (int ch = 0; ch < 2; ++ch)
+    {
+        chorusModulationBuffer.copyFrom(ch, 0, phaserModulationBuffer, ch, 0, numSamples);
+    }
     // 2. LFO Signal is scaled accordingly.
-    modulator.processBlock(modulationBuffer, numSamples);
-    // 3. Set modulation bounds for the Chorus channel.
-    FloatVectorOperations::min(modulationBuffer.getWritePointer(0), modulationBuffer.getWritePointer(0), Parameters::maxDelayTime, numSamples);
+    modulator.processBlock(phaserModulationBuffer, numSamples, "p");
+    modulator.processBlock(chorusModulationBuffer, numSamples, "c");
+    // 3. Set modulation bounds for the Chorus buffer.
+    FloatVectorOperations::min(chorusModulationBuffer.getWritePointer(0), chorusModulationBuffer.getWritePointer(0), Parameters::maxDelayTime, numSamples);
+    FloatVectorOperations::min(chorusModulationBuffer.getWritePointer(1), chorusModulationBuffer.getWritePointer(1), Parameters::maxDelayTime, numSamples);
     // 4. Make copies of the main buffer.
     drywet.copyDrySignal(buffer);
     
@@ -95,9 +106,8 @@ void StoneMistressAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
     }
 
     // 5. Feed the buffers in the respective processing units and PROCESS!
-    phaser.processBlock(smallStoneBuffer, modulationBuffer, numSamples);
-    // chorus.processBlock(buffer, modulationBuffer);
-
+    phaser.processBlock(smallStoneBuffer, phaserModulationBuffer, numSamples);
+    chorus.processBlock(buffer, chorusModulationBuffer);
     // 6. Mix everything.
     drywet.mixDrySignal(buffer, smallStoneBuffer);
 

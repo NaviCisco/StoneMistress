@@ -52,13 +52,15 @@ private:
 
     AudioProcessorValueTreeState parameters;
 
-    AudioBuffer<double> modulationBuffer;
+    AudioBuffer<double> phaserModulationBuffer;
+    AudioBuffer<double> chorusModulationBuffer;
     AudioBuffer<float> smallStoneBuffer;
 
     DryWet drywet;
     LFO lfo;
     ParameterModulation modulator;
     SmallStone phaser;
+    Chorus chorus;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (StoneMistressAudioProcessor)

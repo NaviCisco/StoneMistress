@@ -12,7 +12,7 @@
 #include <JuceHeader.h>
 #include "Filters.h"
 
-#define FEEDBACK 0.73
+#define FEEDBACK 0.8
 #define STAGES 4
 
 // Quick emulation of the Small Stone EH4800 Phase Shifter Pedal. 4 Stages on normal operation; when the COLOR switch is up, the
@@ -65,7 +65,7 @@ public:
             for (int ch = 0; ch < numCh; ++ch)
             {
                 auto sampleValue = bufferData[ch][smp];
-                auto modValue = modData[1][smp];
+                auto modValue = modData[ch][smp];
 
                 if (colorSwitch) // Adds feedback up at first stage.
                 {

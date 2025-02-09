@@ -11,7 +11,7 @@
 #pragma once
 #include <JuceHeader.h>
 
-#define MAX_DELAY_TIME 0.0016
+#define MAX_DELAY_TIME 0.040
 
 class Chorus
 {
@@ -45,13 +45,15 @@ public:
 
         auto bufferData = buffer.getArrayOfWritePointers();
         auto delayData = delayMemory.getArrayOfWritePointers();
-        auto modData = modulationBuffer.getArrayOfWritePointers(); // Delay time is modulated by the left Channel of the mod. buffer!
+        auto modData = modulationBuffer.getArrayOfWritePointers();
+
+        auto numModCh = modulationBuffer.getNumChannels();
 
         for (int smp = 0; smp < numSamples; ++smp)
         {
             for (int ch = 0; ch < numCh; ++ch)
             {
-                auto dt = modData[0][smp];
+                auto dt = modData[jmin(ch, numModCh - 1)][smp];
 
                 auto readIndex = writeIndex - (dt * sampleRate);
 
@@ -68,8 +70,6 @@ public:
                 oldSample[ch] = sampleValue;
 
                 bufferData[ch][smp] = static_cast<float>(sampleValue);
-
-                delayData[ch][writeIndex] += bufferData[ch][smp];
             }
 
             ++writeIndex %= memorySize;
