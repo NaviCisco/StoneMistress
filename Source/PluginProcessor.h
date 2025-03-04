@@ -54,9 +54,9 @@ private:
 
     AudioBuffer<double> phaserModulationBuffer;
     AudioBuffer<double> chorusModulationBuffer;
-    AudioBuffer<float> smallStoneBuffer;
 
-    DryWet drywet;
+    DryWet drywetPhaser;
+    DryWet drywetChorus;
     LFO lfo;
     ParameterModulation modulator;
     SmallStone phaser;

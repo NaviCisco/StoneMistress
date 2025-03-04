@@ -15,8 +15,7 @@
 #define FEEDBACK 0.8
 #define STAGES 4
 
-// Quick emulation of the Small Stone EH4800 Phase Shifter Pedal. 4 Stages on normal operation; when the COLOR switch is up, the
-// notch sweeping range is extended and a feedback line is enabled.
+// Small Stone EH4800 Phase Shifter Pedal emulation. When the COLOR switch is engaged, a feedback line is enabled.
 class SmallStone {
 public:
 
@@ -58,7 +57,7 @@ public:
         const auto numCh = buffer.getNumChannels();
 
         auto bufferData = buffer.getArrayOfWritePointers();
-        auto modData = modulation.getArrayOfWritePointers(); // Phaser is modulated by right Channel of the modulation buffer!
+        auto modData = modulation.getArrayOfWritePointers();
 
         for (int smp = 0; smp < numSamples; ++smp)
         {

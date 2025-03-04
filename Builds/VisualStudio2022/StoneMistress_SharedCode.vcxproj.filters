@@ -8,6 +8,9 @@
     <Filter Include="StoneMistress\DSP">
       <UniqueIdentifier>{4FDE7A9D-35AD-7342-4D49-B50443CE956E}</UniqueIdentifier>
     </Filter>
+    <Filter Include="StoneMistress\Source">
+      <UniqueIdentifier>{303DD288-E43A-E504-570C-D741BC685402}</UniqueIdentifier>
+    </Filter>
     <Filter Include="StoneMistress">
       <UniqueIdentifier>{978A0DAE-52AF-4C86-29EE-3EE8DF92F049}</UniqueIdentifier>
     </Filter>
@@ -3484,6 +3487,9 @@
     <ClCompile Include="..\..\..\..\..\..\..\JUCE\modules\juce_gui_extra\juce_gui_extra.mm">
       <Filter>JUCE Modules\juce_gui_extra</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\BinaryData.cpp">
+      <Filter>JUCE Library Code</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_basics.cpp">
       <Filter>JUCE Library Code</Filter>
     </ClCompile>
@@ -3537,6 +3543,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\Theme.h">
+      <Filter>StoneMistress\GUI</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\PluginEditor.h">
       <Filter>StoneMistress\GUI</Filter>
     </ClInclude>
@@ -7461,6 +7470,9 @@
     <ClInclude Include="..\..\..\..\..\..\..\JUCE\modules\juce_gui_extra\juce_gui_extra.h">
       <Filter>JUCE Modules\juce_gui_extra</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\BinaryData.h">
+      <Filter>JUCE Library Code</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\JuceLibraryCode\JuceHeader.h">
       <Filter>JUCE Library Code</Filter>
     </ClInclude>
@@ -7469,6 +7481,15 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\..\..\..\..\Pictures\ExportAffinity\StoneMistress\ToggleSwitchDown.png">
+      <Filter>StoneMistress\Source</Filter>
+    </None>
+    <None Include="..\..\..\..\..\..\..\Pictures\ExportAffinity\StoneMistress\ToggleSwitchUp.png">
+      <Filter>StoneMistress\Source</Filter>
+    </None>
+    <None Include="..\..\..\..\..\..\..\Pictures\ExportAffinity\StoneMistress\StoneMistressGUI3D7.png">
+      <Filter>StoneMistress\Source</Filter>
+    </None>
     <None Include="..\..\..\..\..\..\..\JUCE\modules\juce_audio_devices\native\oboe\src\common\README.md">
       <Filter>JUCE Modules\juce_audio_devices\native\oboe\src\common</Filter>
     </None>

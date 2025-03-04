@@ -5,6 +5,7 @@
               pluginManufacturer="LIM" pluginManufacturerCode="LIM!" pluginChannelConfigs="{2,2},{2,1},{1,1},{1,2}">
   <MAINGROUP id="iMzaZx" name="StoneMistress">
     <GROUP id="{AB9046A7-44BF-E0C4-12F3-8C64035596A1}" name="GUI">
+      <FILE id="m7WSdQ" name="Theme.h" compile="0" resource="0" file="Source/Theme.h"/>
       <FILE id="HmdKDq" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
       <FILE id="Dd9dKu" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
@@ -21,7 +22,14 @@
           file="Source/PluginProcessor.cpp"/>
     <FILE id="P3CLHA" name="PluginProcessor.h" compile="0" resource="0"
           file="Source/PluginProcessor.h"/>
-    <GROUP id="{AC12758B-E971-B50A-80A8-7D0B6F00426D}" name="Source"/>
+    <GROUP id="{AC12758B-E971-B50A-80A8-7D0B6F00426D}" name="Source">
+      <FILE id="uiGUlW" name="ToggleSwitchDown.png" compile="0" resource="1"
+            file="../../../../../Pictures/ExportAffinity/StoneMistress/ToggleSwitchDown.png"/>
+      <FILE id="IUaiHI" name="ToggleSwitchUp.png" compile="0" resource="1"
+            file="../../../../../Pictures/ExportAffinity/StoneMistress/ToggleSwitchUp.png"/>
+      <FILE id="InLfkB" name="StoneMistressGUI3D7.png" compile="0" resource="1"
+            file="../../../../../Pictures/ExportAffinity/StoneMistress/StoneMistressGUI3D7.png"/>
+    </GROUP>
   </MAINGROUP>
   <MODULES>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>

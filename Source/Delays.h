@@ -11,7 +11,7 @@
 #pragma once
 #include <JuceHeader.h>
 
-#define MAX_DELAY_TIME 0.040
+#define MAX_DELAY_TIME 0.050
 
 class Chorus
 {

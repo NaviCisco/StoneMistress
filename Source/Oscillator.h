@@ -57,7 +57,7 @@ public:
 
 	void getNextAudioSample(double& leftSample, double& rightSample)
 	{
-		//Small Stone LFO Is a SineWave
+		// Small Stone LFO Is a Triangle Wave
 		leftSample = 4.0 * abs(currentPhase - std::floor(currentPhase + 0.5)) - 1.0;
 		rightSample = 4.0 * abs((currentPhase + phaseDelta) - std::floor(currentPhase + phaseDelta + 0.5)) - 1.0;
 
@@ -91,7 +91,7 @@ public:
 	void prepareToPlay(double sampleRate)
 	{
 		phaserDepth.reset(sampleRate, 0.02);
-		chorusDepth.reset(sampleRate, 0.02);
+		chorusDepth.reset(sampleRate, 0.2);
 	}
 
 	void setPhaserDepth(const double newValue)
@@ -124,8 +124,6 @@ public:
 		{
 			chorusDepth.applyGain(data[0], numSamples);
 			chorusDepth.applyGain(data[1], numSamples);
-			FloatVectorOperations::add(data[0], CHORUS_DELAY_TIME, numSamples);
-			FloatVectorOperations::add(data[1], CHORUS_DELAY_TIME, numSamples);
 		}
 	}
 
@@ -135,26 +133,5 @@ private:
 	SmoothedValue<double, ValueSmoothingTypes::Linear> chorusDepth;
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ParameterModulation)
-
-};
-
-// This class allows the LFO and Modulation classes to communicate with each other. If the RATE value is below a certain
-// threshold, the pedal will enter "Filter Matrix" mode, so that the PHASER unit's delay time will be manually set via the RATE
-// knob. This reults in the ability for the user to manually move the notches across the frequency spectrum. If the RATE knob points
-// to a value above the threshold, Filter Matrix mode will be disengaged, that is, the Phaser's All Pass coefficients will be dynamically 
-// modulated by the LFO as usual.
-
-class FilterMatrix
-{
-public:
-	FilterMatrix(LFO& lfo, ParameterModulation& modulator)
-	{
-	}
-
-	~FilterMatrix() {}
-
-private:
-
-	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(FilterMatrix)
 
 };

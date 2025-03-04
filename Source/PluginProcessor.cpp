@@ -19,13 +19,14 @@ StoneMistressAudioProcessor::~StoneMistressAudioProcessor()
 //==============================================================================
 void StoneMistressAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    drywet.prepareToPlay(samplesPerBlock);
+    drywetPhaser.prepareToPlay(samplesPerBlock);
+    drywetChorus.prepareToPlay(samplesPerBlock);
     lfo.prepareToPlay(sampleRate);
     phaserModulationBuffer.setSize(2, samplesPerBlock);
     chorusModulationBuffer.setSize(2, samplesPerBlock);
     modulator.prepareToPlay(sampleRate);
-    smallStoneBuffer.setSize(2, samplesPerBlock);
-    smallStoneBuffer.clear();
+    //smallStoneBuffer.setSize(2, samplesPerBlock);
+    //smallStoneBuffer.clear();
     phaser.prepareToPlay(sampleRate);
     chorus.prepareToPlay(sampleRate, samplesPerBlock);
 }
@@ -34,7 +35,7 @@ void StoneMistressAudioProcessor::releaseResources()
 {
     phaserModulationBuffer.setSize(0, 0);
     chorusModulationBuffer.setSize(0, 0);
-    smallStoneBuffer.setSize(0, 0);
+    //smallStoneBuffer.setSize(0, 0);
     chorus.releaseResources();
 }
 
@@ -84,43 +85,51 @@ void StoneMistressAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
 
     // TO DO LIST.
 
-    // 1. Generate the sine LFO Signal for one unit.
+    // 1. Generate the LFO Signal.
     lfo.getNextAudioBlock(phaserModulationBuffer, numSamples);
+
     // 2. Copy the same LFO signal into another buffer.
     for (int ch = 0; ch < 2; ++ch)
     {
         chorusModulationBuffer.copyFrom(ch, 0, phaserModulationBuffer, ch, 0, numSamples);
     }
-    // 2. LFO Signal is scaled accordingly.
+
+    // 3. LFO Signal is scaled accordingly.
     modulator.processBlock(phaserModulationBuffer, numSamples, "p");
     modulator.processBlock(chorusModulationBuffer, numSamples, "c");
-    // 3. Set modulation bounds for the Chorus buffer.
+
+    // 4. Set modulation bounds for the Chorus buffer.
     FloatVectorOperations::min(chorusModulationBuffer.getWritePointer(0), chorusModulationBuffer.getWritePointer(0), Parameters::maxDelayTime, numSamples);
     FloatVectorOperations::min(chorusModulationBuffer.getWritePointer(1), chorusModulationBuffer.getWritePointer(1), Parameters::maxDelayTime, numSamples);
-    // 4. Make copies of the main buffer.
-    drywet.copyDrySignal(buffer);
     
-    for (int ch = 0; ch < numCh; ++ch)
-    {
-        smallStoneBuffer.copyFrom(ch, 0, buffer, ch, 0, numSamples);
-    }
+    // 5. Make copy of the dry signal before it enters the phaser unit.
+    drywetPhaser.copyDrySignal(buffer);
 
-    // 5. Feed the buffers in the respective processing units and PROCESS!
-    phaser.processBlock(smallStoneBuffer, phaserModulationBuffer, numSamples);
+    // 6. Feed the buffer into the phaser unit.
+    phaser.processBlock(buffer, phaserModulationBuffer, numSamples);
+
+    // 7. Mix dry and wet signal.
+    drywetPhaser.mixDrySignal(buffer);
+
+    // 8. Make copy of the phase shifted signal. 
+    drywetChorus.copyDrySignal(buffer);
+
+    // 9. Feed the buffer into the chorus unit.
     chorus.processBlock(buffer, chorusModulationBuffer);
-    // 6. Mix everything.
-    drywet.mixDrySignal(buffer, smallStoneBuffer);
+
+    // 10. Last mix before final output.
+    drywetChorus.mixDrySignal(buffer);
 
 }
 //==============================================================================
 bool StoneMistressAudioProcessor::hasEditor() const
 {
-    return false; // (change this to false if you choose to not supply an editor)
+    return true; // (change this to false if you choose to not supply an editor)
 }
 
 juce::AudioProcessorEditor* StoneMistressAudioProcessor::createEditor()
 {
-    return new StoneMistressAudioProcessorEditor (*this);
+    return new StoneMistressAudioProcessorEditor (*this, parameters);
 }
 
 //==============================================================================

@@ -14,7 +14,7 @@
 namespace Parameters
 {
     //CONSTANTS
-    static const double maxDelayTime = 0.040;
+    static const double maxDelayTime = 0.050;
 
     // PARAMETER IDs
     static const String nameRate = "RT";
@@ -32,9 +32,9 @@ namespace Parameters
     {
         std::vector<std::unique_ptr<RangedAudioParameter>> parameters;
 
-        parameters.push_back(std::make_unique<AudioParameterFloat>(nameRate, "Rate", NormalisableRange<float>(0.05f, 8.0f, 0.01f, 0.3f), defaultRate));
+        parameters.push_back(std::make_unique<AudioParameterFloat>(nameRate, "Rate", NormalisableRange<float>(0.05f, 8.0f, 0.00001f, 0.3f), defaultRate));
         parameters.push_back(std::make_unique<AudioParameterFloat>(namePhaserDepth, "Phaser Depth", NormalisableRange<float>(0.000f, 2000.0f, 1.0f), defaultPhaserDepth));
-        parameters.push_back(std::make_unique<AudioParameterFloat>(nameChorusDepth, "Chorus Depth", NormalisableRange<float>(0.0000f, 0.03000f, 0.0001f), defaultChorusDepth));
+        parameters.push_back(std::make_unique<AudioParameterFloat>(nameChorusDepth, "Chorus Depth", NormalisableRange<float>(0.0000f, 0.04000f, 0.0001f), defaultChorusDepth));
         parameters.push_back(std::make_unique<AudioParameterBool>(nameColor, "Color", defaultColor));
 
         return { parameters.begin(), parameters.end() };
