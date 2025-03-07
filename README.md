@@ -1,5 +1,5 @@
 # Stone Mistress
-Lush stereo chorus and phaser\
+Lush stereo chorus and phaser inspired by the Electro-Harmonix Small Stone EH4800 and Stereo Electric Mistress pedals\
 \
 ![image alt](https://github.com/NaviCisco/StoneMistress/blob/fbf9a692fab03b4b93e5b63d7dc0cc7425a01049/images/StoneMistressShowcasePNG.png)
 
@@ -12,9 +12,12 @@ The same principle is applied to the comb filter created by the delay unit that 
 
 
 ## Overview
-The Stone Mistress consists of a 4-Stages Phaser and a Chorus unit in chain, modulated by a single LFO generator.\
+The Stone Mistress consists of a Phaser and a Chorus unit in chain, modulated by a single LFO generator.\
 \
 ![iamge alt](https://github.com/NaviCisco/StoneMistress/blob/73539c8d28a7e338106b711aa7d24e4219356605/images/StoneMistressDiagram.png)
+
+### Phaser
+The phaser unit is modeled after the Electro-Harmonix Small Stone EH4800 Phase Shifter. The phase shifting effect is achieved by chaining together four All Pass filters; for this reason, it is also said to be a "four stages pedal". 
 
 ## How to install
 ### Windows
