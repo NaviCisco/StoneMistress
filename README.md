@@ -17,7 +17,10 @@ The Stone Mistress consists of a Phaser and a Chorus unit in chain, modulated by
 ![iamge alt](https://github.com/NaviCisco/StoneMistress/blob/73539c8d28a7e338106b711aa7d24e4219356605/images/StoneMistressDiagram.png)
 
 ### Phaser
-The phaser unit is modeled after the Electro-Harmonix Small Stone EH4800 Phase Shifter. The phase shifting effect is achieved by chaining together four All Pass filters; for this reason, it is also said to be a "four stages pedal". A color switch, enables a feedback line that adds 80% of the output. $\sqrt{3x-1}+(1+x)^2$
+The phaser unit is modeled after the Electro-Harmonix Small Stone EH4800 Phase Shifter. The phase shifting effect is achieved by chaining together four All Pass filters; for this reason, it is also said to be a "four stages pedal". Specifically, the plugin makes use of four First-Order IIR All-Pass filters. The Transfer Function is:\
+\
+$$H_AP = \frac{a_1 + z^-1}{1 + a_1 z^-1}$$
+A color switch, enables a feedback line that adds 80% of the output.
 
 ## How to install
 ### Windows
