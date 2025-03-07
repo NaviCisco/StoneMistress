@@ -2,8 +2,9 @@
 Lush stereo chorus and phaser
 
 ## Overview
-The Stone Mistress consists of a 4-Stages Phaser and a Chorus unit in chain, modulated by a single LFO generator.
-![iamge alt]()
+The Stone Mistress consists of a 4-Stages Phaser and a Chorus unit in chain, modulated by a single LFO generator.\
+\
+![iamge alt](https://github.com/NaviCisco/StoneMistress/blob/73539c8d28a7e338106b711aa7d24e4219356605/images/StoneMistressDiagram.png)
 
 ## How to install
 ### Windows
