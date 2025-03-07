@@ -1,7 +1,11 @@
 # Stone Mistress
-Lush stereo chorus and phaser
+Lush stereo chorus and phaser\
+\
+![image alt](https://github.com/NaviCisco/StoneMistress/blob/fbf9a692fab03b4b93e5b63d7dc0cc7425a01049/images/StoneMistressShowcasePNG.png)\
+\
+- Rate: Controls the rate of the LFO signal that modulates the speed at which the notches created by the All-Pass filters sweep back and forth across the spectrum.
+The same principle is applied to the comb filter created by the delay unit that originates the chorus effect.
 
-![image alt](https://github.com/NaviCisco/StoneMistress/blob/fbf9a692fab03b4b93e5b63d7dc0cc7425a01049/images/StoneMistressShowcasePNG.png)
 
 ## Overview
 The Stone Mistress consists of a 4-Stages Phaser and a Chorus unit in chain, modulated by a single LFO generator.\
