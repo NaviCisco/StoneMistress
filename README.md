@@ -17,7 +17,7 @@ The Stone Mistress consists of a Phaser and a Chorus unit in chain, modulated by
 ![iamge alt](https://github.com/NaviCisco/StoneMistress/blob/73539c8d28a7e338106b711aa7d24e4219356605/images/StoneMistressDiagram.png)
 
 ### Phaser
-The phaser unit is modeled after the Electro-Harmonix Small Stone EH4800 Phase Shifter. The phase shifting effect is achieved by chaining together four All Pass filters; for this reason, it is also said to be a "four stages pedal". Specifically, the plugin makes use of four First-Order IIR All-Pass filters. The Transfer Function is:\
+The phaser unit is modeled after the Electro-Harmonix Small Stone EH4800 Phase Shifter. The phase shifting effect is achieved by chaining together four All Pass filters; for this reason, it is also said to be a "four stages pedal". Specifically, the plugin makes use of four First-Order IIR All-Pass filters. The Transfer Function is:
 <p align="center">
 $$H_{AP} = \frac{a_1 + z^{-1}}{1 + a_1z^{-1}}$$
 </p>
@@ -25,6 +25,7 @@ A color switch, enables a feedback line that adds 80% of the output.
 
 ## How to install
 ### Windows
-Simply copy the .vst3 file in your system VST3 folder. Usually this is located at:\
-\
+Simply copy the .vst3 file in your system VST3 folder. Usually this is located at:
+<p align="center">
 C:\Program Files\Common Files\VST3
+</p>
