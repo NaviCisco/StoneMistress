@@ -24,7 +24,7 @@ $$H_{AP} = \frac{a_1 + z^{-1}}{1 + a_1z^{-1}}$$
 The $a_1$ coefficient controls the _break frequency_ of the All-Pass filter, that is, the frequency at which a phase shift of $-\frac{\pi}{2}$ takes place. When two all pass filters with the same break frequency are put in series, a total of 180° phase shift occurs, which leads to the formation of a notch in the spectrum. Now you can see the pattern: adding a second pair of All-Pass filters with the same break frequency makes up a second notch.\
 In order to obtain the classic sweeping tone of a phaser, the $a_1$ has to be modulated. The $a_1$ coefficient is given by the following formula:
 
-$$a_1 = \frac{\tan(\pi*f_b/f_s)-1}{\tan(\pi*f_b/f_s)+1}$$
+$$a_1 = \frac{\tan(\pi*f\_b/f\_s)-1}{\tan(\pi*f\_b/f\_s)+1}$$
 
 A color switch, enables a feedback line that adds 80% of the output.
 
