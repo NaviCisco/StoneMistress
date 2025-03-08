@@ -18,7 +18,7 @@ The Stone Mistress consists of a Phaser and a Chorus unit in chain, modulated by
 
 ### Phaser
 The phaser unit is modeled after the Electro-Harmonix Small Stone EH4800 Phase Shifter. The phase shifting effect is achieved by summing the _dry_ and the _wet_ signal: when the phase shifted signal (the wet signal) adds up to the dry signal, certain frequency components cancel each others out creating _notches_ (the points in the spectrum where the magnitude is 0). These notches are subsequently modulated, effectively producing the typical sweeping tone of a phaser pedal.\
-The Small Stone is said to be a "four stages pedal" because it is made up of 4 all-pass filters. Specifically, the plugin is implemented with four first-order IIR all-pass filters. The transfer function is of an all-pass filter is:
+The Small Stone is said to be a "four stages pedal" because it is made up of 4 all-pass filters. Specifically, the plugin is implemented with four first-order Infinite Impulse Response (IIR) all-pass filters. The transfer function of an all-pass filter is:
 
 $$H_{AP} = \frac{a_1 + z^{-1}}{1 + a_1z^{-1}}$$
 
@@ -32,13 +32,17 @@ where $f_s$ is the sample frequency, the formula for a modulated $a_1$ coefficie
 $$a_{1 mod} = \frac{\tan(\pi*{f_b **+ modValue**}/{f_s})-1}{\tan(\pi*{f_b}/{f_s})+1}$$
 
 $modValue$ [Hz] is the amount of modulation applied per sample. For this plugin, it takes on values in the 0-3000 range.\
-Lastly, a color switch, enables a feedback line that adds back to input 80% of the signal coming out of the All-Pass chain.
+Lastly, a color switch, enables a feedback line that adds back to input 80% of the signal coming out of the All-Pass chain.\
+Full code can be inspected in the Filters.h and SmallStone.h files
 
 ### Chorus
-The chorus effect is obtained by delaying a copy of the dry signal by a couple milliseconds. When the delayed copy is mixed with the original signal, not only the sound is perceived as wider, but a comb filtering effect also takes place.\
-> [!NOTE]
-> The difference between a flanger and a phaser, is that the flanger has the notches harmonically distributed.
-Nothing speacial about the chorus, the code can be inspected in the Delays.h file
+The chorus effect is obtained by delaying a copy of the dry signal by a couple milliseconds. When the delayed copy is mixed with the original signal, not only the sound is perceived as wider, but a comb filter is created as well. This is moved back and forth along the spectrum by the LFO.\
+The dry signal copy can be delayed up to 50 milliseconds.\
+Full code available in the Delays.h file
+
+### LFO
+The LFO signal is triangular:
+$$LFO_{tri} = 4.0 * abs(currentPhase - 0.5) - 1.0$$
 
 ## How to install
 ### Windows
