@@ -21,7 +21,7 @@ The phaser unit is modeled after the Electro-Harmonix Small Stone EH4800 Phase S
 
 $$H_{AP} = \frac{a_1 + z^{-1}}{1 + a_1z^{-1}}$$
 
-The $a_1$ coefficient controls the _break frequency_ of the All-Pass filter, that is, the frequency at which a phase shift of - $\frac{\pi}{2}$
+The $a_1$ coefficient controls the _break frequency_ of the All-Pass filter, that is, the frequency at which a phase shift of $-\frac{\pi}{2}$
 A color switch, enables a feedback line that adds 80% of the output.
 
 ## How to install
