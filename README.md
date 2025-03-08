@@ -32,7 +32,7 @@ where $f_s$ is the sample frequency, the formula for a modulated $a_1$ coefficie
 $$a_{1 mod} = \frac{\tan(\pi*{f_b **+ modValue**}/{f_s})-1}{\tan(\pi*{f_b}/{f_s})+1}$$
 
 $modValue$ [Hz] is the amount of modulation applied per sample. For this plugin, it takes on values in the 0-3000 range.\
-Lastly, a color switch, enables a feedback line that adds back to input 80% of the signal coming out of the All-Pass chain.\
+Lastly, a color switch, enables a feedback line that adds back to input 80% of the signal coming out of the all-pass chain.\
 Full code can be inspected in the Filters.h and SmallStone.h files
 
 ### Chorus
@@ -52,4 +52,4 @@ C:\Program Files\Common Files\VST3
 </p>
 
 ## Issues
-On some computers, the plugin GUI can be displayed with a lower DPI resolution inside Ableton. To fix this, right-click on the plugin's name in the plugin list and check/uncheck "Autoscale plugin window"
+On some computers, the plugin GUI might be displayed with a lower DPI resolution inside Ableton. To fix this, right-click on the plugin's name in the plugin list and check/uncheck "Autoscale plugin window"
