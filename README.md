@@ -41,8 +41,8 @@ The dry signal copy can be delayed up to 50 milliseconds.\
 Full code available in the Delays.h file
 
 ### LFO
-The LFO signal is triangular:
-$$LFO_{tri} = 4.0 * abs(currentPhase - 0.5) - 1.0$$
+The LFO signal is triangular. There's a 180° phase offset between left and right channel, so that the stereo image can be created. The rate goes up to 8Hz.\
+Code available in the Oscillator.h file.
 
 ## How to install
 ### Windows
@@ -50,3 +50,6 @@ Simply copy the .vst3 file in your system VST3 folder. Usually this is located a
 <p align="center">
 C:\Program Files\Common Files\VST3
 </p>
+
+## Issues
+On some computers, the plugin GUI can be displayed with a lower DPI resolution inside Ableton. To fix this, right-click on the plugin's name in the plugin list and check/uncheck "Autoscale plugin window"
