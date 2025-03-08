@@ -8,7 +8,7 @@ Lush stereo chorus and phaser inspired by the Electro-Harmonix Small Stone EH480
 The same principle is applied to the comb filter created by the delay unit that originates the chorus effect.
 - **Phaser depth**: Controls the sweeping range of the All-Pass notches. The more the Depth, the more pronounced the phasing effect.
 - **Chorus depth**: Controls the amount of delay time applied by the delay unit. The more you turn the knob clockwise, the more pronounced the chorus effect.
-- **Color**: When engaged, feedback is sent back to the Phaser input. Notice how the Stone Mistress carves into the frequency spectrum hollowing out the sound. Fundamentals and harmonics glide in and out for an extremely pronounced phasing/shifting effect. $b$
+- **Color**: When engaged, feedback is sent back to the Phaser input. Notice how the Stone Mistress carves into the frequency spectrum hollowing out the sound. Fundamentals and harmonics glide in and out for an extremely pronounced phasing/shifting effect. $a_1$
 
 
 ## Overview
