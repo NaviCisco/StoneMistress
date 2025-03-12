@@ -52,7 +52,7 @@ C:\Program Files\Common Files\VST3
 </p>
 
 ## How to Build
-1. In create a new "Source" Group in the Projucer project file.
+1. Create a new "Source" Group in the Projucer project file.
 2. Drag and drop the following files inside said Group:
    - StoneMistressGUI.png
    - ToggleSwitchUp.png
