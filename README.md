@@ -53,11 +53,10 @@ C:\Program Files\Common Files\VST3
 
 ## How to Build
 1. Create a new "Source" Group in the Projucer project file.
-2. Drag and drop the following files inside said Group:
+2. Drag and drop the following files inside said Group located in the /images folder:
    - StoneMistressGUI.png
    - ToggleSwitchUp.png
    - ToggleSwitchDown.png
-These are located in the /images folder
 3. Right click on each one of those files and make sure "Binary Resource" is ticked.
 4. Now you can open the code in a IDE of your choice and proceed to build the executables.
 
