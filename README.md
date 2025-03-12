@@ -51,5 +51,14 @@ Simply copy the .vst3 file in your system VST3 folder. Usually this is located a
 C:\Program Files\Common Files\VST3
 </p>
 
+## How to Build
+1. In create a new "Source" Group in the Projucer project file.
+2. Drag and drop the following files inside said Group:
+   - StoneMistressGUI.png
+   - ToggleSwitchUp.png
+   - ToggleSwitchDown.png
+3. Right click on each one of those files and make sure "Binary Resource" is ticked.
+4. Now you can open the code in a IDE of your choice and proceed to build the executables.
+
 ## Issues
 On some computers, the plugin GUI might be displayed with a lower DPI resolution inside Ableton. To fix this, right-click on the plugin's name in the plugin list and check/uncheck "Autoscale plugin window"
