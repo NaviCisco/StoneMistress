@@ -8,14 +8,14 @@
 
 namespace BinaryData
 {
-    extern const char*   ToggleSwitchDown_png;
-    const int            ToggleSwitchDown_pngSize = 4632;
-
     extern const char*   ToggleSwitchUp_png;
     const int            ToggleSwitchUp_pngSize = 4238;
 
-    extern const char*   StoneMistressGUI3D7_png;
-    const int            StoneMistressGUI3D7_pngSize = 2299019;
+    extern const char*   ToggleSwitchDown_png;
+    const int            ToggleSwitchDown_pngSize = 4632;
+
+    extern const char*   StoneMistressGUI_png;
+    const int            StoneMistressGUI_pngSize = 2299019;
 
     // Number of elements in the namedResourceList and originalFileNames arrays.
     const int namedResourceListSize = 3;

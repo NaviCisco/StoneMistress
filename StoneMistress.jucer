@@ -23,12 +23,12 @@
     <FILE id="P3CLHA" name="PluginProcessor.h" compile="0" resource="0"
           file="Source/PluginProcessor.h"/>
     <GROUP id="{AC12758B-E971-B50A-80A8-7D0B6F00426D}" name="Source">
-      <FILE id="uiGUlW" name="ToggleSwitchDown.png" compile="0" resource="1"
-            file="../../../../../Pictures/ExportAffinity/StoneMistress/ToggleSwitchDown.png"/>
-      <FILE id="IUaiHI" name="ToggleSwitchUp.png" compile="0" resource="1"
-            file="../../../../../Pictures/ExportAffinity/StoneMistress/ToggleSwitchUp.png"/>
-      <FILE id="InLfkB" name="StoneMistressGUI3D7.png" compile="0" resource="1"
-            file="../../../../../Pictures/ExportAffinity/StoneMistress/StoneMistressGUI3D7.png"/>
+      <FILE id="JaiMJA" name="ToggleSwitchUp.png" compile="0" resource="1"
+            file="images/ToggleSwitchUp.png"/>
+      <FILE id="cQ1QWn" name="ToggleSwitchDown.png" compile="0" resource="1"
+            file="images/ToggleSwitchDown.png"/>
+      <FILE id="aMqYuH" name="StoneMistressGUI.png" compile="0" resource="1"
+            file="images/StoneMistressGUI.png"/>
     </GROUP>
   </MAINGROUP>
   <MODULES>

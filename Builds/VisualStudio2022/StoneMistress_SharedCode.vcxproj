@@ -4126,9 +4126,9 @@
     <ClInclude Include="..\..\JuceLibraryCode\JucePluginDefines.h"/>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\..\..\..\Pictures\ExportAffinity\StoneMistress\ToggleSwitchDown.png"/>
-    <None Include="..\..\..\..\..\..\..\Pictures\ExportAffinity\StoneMistress\ToggleSwitchUp.png"/>
-    <None Include="..\..\..\..\..\..\..\Pictures\ExportAffinity\StoneMistress\StoneMistressGUI3D7.png"/>
+    <None Include="..\..\images\ToggleSwitchUp.png"/>
+    <None Include="..\..\images\ToggleSwitchDown.png"/>
+    <None Include="..\..\images\StoneMistressGUI.png"/>
     <None Include="..\..\..\..\..\..\..\JUCE\modules\juce_audio_devices\native\oboe\src\common\README.md"/>
     <None Include="..\..\..\..\..\..\..\JUCE\modules\juce_audio_devices\native\oboe\src\flowgraph\resampler\README.md"/>
     <None Include="..\..\..\..\..\..\..\JUCE\modules\juce_audio_devices\native\oboe\CMakeLists.txt"/>

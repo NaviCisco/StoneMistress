@@ -7481,13 +7481,13 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\..\..\..\Pictures\ExportAffinity\StoneMistress\ToggleSwitchDown.png">
+    <None Include="..\..\images\ToggleSwitchUp.png">
       <Filter>StoneMistress\Source</Filter>
     </None>
-    <None Include="..\..\..\..\..\..\..\Pictures\ExportAffinity\StoneMistress\ToggleSwitchUp.png">
+    <None Include="..\..\images\ToggleSwitchDown.png">
       <Filter>StoneMistress\Source</Filter>
     </None>
-    <None Include="..\..\..\..\..\..\..\Pictures\ExportAffinity\StoneMistress\StoneMistressGUI3D7.png">
+    <None Include="..\..\images\StoneMistressGUI.png">
       <Filter>StoneMistress\Source</Filter>
     </None>
     <None Include="..\..\..\..\..\..\..\JUCE\modules\juce_audio_devices\native\oboe\src\common\README.md">

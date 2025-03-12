@@ -34,7 +34,7 @@ StoneMistressAudioProcessorEditor::StoneMistressAudioProcessorEditor (StoneMistr
 
     colorSwitchOnImage = ImageCache::getFromMemory(BinaryData::ToggleSwitchUp_png, BinaryData::ToggleSwitchUp_pngSize);
     colorSwitchOffImage = ImageCache::getFromMemory(BinaryData::ToggleSwitchDown_png, BinaryData::ToggleSwitchDown_pngSize);
-    backgroundImage = ImageCache::getFromMemory(BinaryData::StoneMistressGUI3D7_png, BinaryData::StoneMistressGUI3D7_pngSize);
+    backgroundImage = ImageCache::getFromMemory(BinaryData::StoneMistressGUI_png, BinaryData::StoneMistressGUI_pngSize);
 
     //rateSlider.setLookAndFeel(&myTheme);  Applica il tema al singolo componente
     //Applica il tema al padre e quindi a tutti i componenti figli.
