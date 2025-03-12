@@ -57,7 +57,7 @@ C:\Program Files\Common Files\VST3
    - StoneMistressGUI.png
    - ToggleSwitchUp.png
    - ToggleSwitchDown.png
-   These are located in the /images folder
+These are located in the /images folder
 3. Right click on each one of those files and make sure "Binary Resource" is ticked.
 4. Now you can open the code in a IDE of your choice and proceed to build the executables.
 
