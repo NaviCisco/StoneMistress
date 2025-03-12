@@ -50,6 +50,8 @@ private:
     std::unique_ptr<SliderAttachment> chorusDepthAttachment;
     std::unique_ptr<ButtonAttachment> colorAttachment;
 
+    File imageFile = File::getSpecialLocation(File::currentExecutableFile).getParentDirectory();
+
     Image colorSwitchOnImage;
     Image colorSwitchOffImage;
     Image backgroundImage;
