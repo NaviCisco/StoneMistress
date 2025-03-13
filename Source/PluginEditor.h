@@ -18,7 +18,7 @@ typedef AudioProcessorValueTreeState::ButtonAttachment ButtonAttachment;
 //==============================================================================
 /**
 */
-class StoneMistressAudioProcessorEditor  : public juce::AudioProcessorEditor, public MouseListener
+class StoneMistressAudioProcessorEditor  : public juce::AudioProcessorEditor
 {
 public:
     StoneMistressAudioProcessorEditor (StoneMistressAudioProcessor&, AudioProcessorValueTreeState&);
@@ -49,8 +49,6 @@ private:
     std::unique_ptr<SliderAttachment> phaserDepthAttachment;
     std::unique_ptr<SliderAttachment> chorusDepthAttachment;
     std::unique_ptr<ButtonAttachment> colorAttachment;
-
-    File imageFile = File::getSpecialLocation(File::currentExecutableFile).getParentDirectory();
 
     Image colorSwitchOnImage;
     Image colorSwitchOffImage;

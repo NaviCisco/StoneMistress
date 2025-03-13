@@ -2,14 +2,14 @@
 
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="StoneMistress\Source">
+      <UniqueIdentifier>{303DD288-E43A-E504-570C-D741BC685402}</UniqueIdentifier>
+    </Filter>
     <Filter Include="StoneMistress\GUI">
       <UniqueIdentifier>{88843EB5-8930-3D15-69A9-FFE534E0A9CD}</UniqueIdentifier>
     </Filter>
     <Filter Include="StoneMistress\DSP">
       <UniqueIdentifier>{4FDE7A9D-35AD-7342-4D49-B50443CE956E}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="StoneMistress\Source">
-      <UniqueIdentifier>{303DD288-E43A-E504-570C-D741BC685402}</UniqueIdentifier>
     </Filter>
     <Filter Include="StoneMistress">
       <UniqueIdentifier>{978A0DAE-52AF-4C86-29EE-3EE8DF92F049}</UniqueIdentifier>
