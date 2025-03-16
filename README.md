@@ -51,6 +51,9 @@ Simply copy the .vst3 file in your system VST3 folder. Usually this is located a
 C:\Program Files\Common Files\VST3
 </p>
 
+### OS X
+See next section to build your own AU copy.
+
 ## How to Build
 1. Create a new "Source" Group in the Projucer project file.
 2. Drag and drop the following files inside said Group located in the /images folder:
