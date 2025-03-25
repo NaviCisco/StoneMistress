@@ -65,5 +65,3 @@ See next section to build your own AU copy.
 
 ## Issues
 On some computers, the plugin GUI might be displayed with a lower DPI resolution inside Ableton. To fix this, right-click on the plugin's name in the plugin list and check/uncheck "Autoscale plugin window"
-
-**LINUX:** It was reported that the plugin is not working when building the .vst3 on Linux. As of now, I couldn't identify what's causing the problem. Any help is welcome.
