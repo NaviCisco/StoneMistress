@@ -3,7 +3,7 @@
 
     SmallStone.h
     Created: 19 Oct 2024 8:43:00pm
-    Author:  Ivan F. MuG.
+    Author:  Ivan F. Muñoz G.
 
   ==============================================================================
 */
