@@ -150,7 +150,6 @@ void StoneMistressAudioProcessor::setStateInformation (const void* data, int siz
 
 void StoneMistressAudioProcessor::parameterChanged(const String& paramID, float newValue)
 {
-    DBG("Parameter Changed!");
     if (paramID == Parameters::nameRate)
     {
         lfo.setRate(newValue);
