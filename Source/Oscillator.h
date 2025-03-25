@@ -58,8 +58,8 @@ public:
 	void getNextAudioSample(double& leftSample, double& rightSample)
 	{
 		// Small Stone LFO Is a Triangle Wave
-		leftSample = 4.0 * abs(currentPhase - std::floor(currentPhase + 0.5)) - 1.0;
-		rightSample = 4.0 * abs((currentPhase + phaseDelta) - std::floor(currentPhase + phaseDelta + 0.5)) - 1.0;
+		leftSample = 4.0 * std::abs(currentPhase - std::floor(currentPhase + 0.5)) - 1.0;
+		rightSample = 4.0 * std::abs((currentPhase + phaseDelta) - std::floor(currentPhase + phaseDelta + 0.5)) - 1.0;
 
 		phaseIncrement = rate.getNextValue() * samplePeriod;
 		currentPhase += phaseIncrement;
