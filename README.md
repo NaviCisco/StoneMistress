@@ -51,6 +51,9 @@ Simply copy the .vst3 file in your system VST3 folder. Usually this is located a
 C:\Program Files\Common Files\VST3
 </p>
 
+### OS X
+See next section to build your own AU copy.
+
 ## How to Build
 1. Create a new "Source" Group in the Projucer project file.
 2. Drag and drop the following files inside said Group located in the /images folder:
@@ -62,3 +65,5 @@ C:\Program Files\Common Files\VST3
 
 ## Issues
 On some computers, the plugin GUI might be displayed with a lower DPI resolution inside Ableton. To fix this, right-click on the plugin's name in the plugin list and check/uncheck "Autoscale plugin window"
+
+**LINUX:** It was reported that the plugin is not working when building the .vst3 on Linux. As of now, I couldn't identify what's causing the problem. Any help is welcome.
