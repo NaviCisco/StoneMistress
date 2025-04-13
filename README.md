@@ -52,7 +52,10 @@ C:\Program Files\Common Files\VST3
 </p>
 
 ### OS X
-See next section to build your own AU copy.
+Copy the .component (Audio Unit) file in:
+<p align="center">
+/Library/Audio/Plug-Ins/Components
+</p>
 
 ## How to Build
 1. Create a new "Source" Group in the Projucer project file.
